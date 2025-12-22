@@ -35,10 +35,11 @@ const ModelSelect = ({ modelsData, setModel, isInstalling }: ModelSelectProps) =
           labelId="model-label"
           label="Model"
           disabled={isInstalling}
+          value=""
         >
-          {modelsData?.map((model) => (
-            <MenuItem key={model.name} value={model.name}>
-              {model.name}
+          {modelsData?.map(({ name }) => (
+            <MenuItem key={name} value={name}>
+              {name}
             </MenuItem>
           ))}
         </Select>

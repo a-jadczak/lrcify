@@ -13,9 +13,9 @@ import InfoIcon from '@mui/icons-material/Info';
 import { useState } from 'react';
 
 const ModelSettings = ({ isCudaAvailable, languages }) => {
-  const [language, setLanguage] = useState<string>();
-  const [device, setDevice] = useState<string>();
-  const [beamSize, setBeamSize] = useState<number>();
+  const [language, setLanguage] = useState<string>('auto');
+  const [device, setDevice] = useState<string>('cpu');
+  const [beamSize, setBeamSize] = useState<number>(4);
 
   return (
     <>
@@ -45,6 +45,7 @@ const ModelSettings = ({ isCudaAvailable, languages }) => {
             labelId="device-label"
             label="Device"
             size="small"
+            value={device}
           >
             <MenuItem value={'cpu'}>CPU</MenuItem>
             <MenuItem disabled={isCudaAvailable} value={'cuda'}>
@@ -63,12 +64,15 @@ const ModelSettings = ({ isCudaAvailable, languages }) => {
             labelId="language-label"
             label="Language"
             size="small"
+            value={language}
           >
-            <MenuItem value={'auto'} defaultChecked>
+            <MenuItem value={'auto'} defaultChecked={true}>
               Auto
             </MenuItem>
-            {languages.map((e) => (
-              <MenuItem value={Object.keys(e)[0]}>{e[Object.keys(e)[0]]}</MenuItem>
+            {languages.map(({ iso, name }) => (
+              <MenuItem key={iso} value={iso}>
+                {name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

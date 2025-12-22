@@ -9,7 +9,7 @@ export const registerAPIHandlers = () => {
 
   ipcMain.handle('get-is-cuda-available', async () => {
     const res = await api.get('/cuda');
-    return res.data;
+    return Boolean(res.data);
   });
 
   // ipcMain.handle('get-transcribe-settings', async () => {
