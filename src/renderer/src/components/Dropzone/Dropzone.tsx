@@ -13,12 +13,12 @@ const Dropzone = (): React.JSX.Element => {
 
   const uploadFiles = useCallback(async () => {
     const result = await window.api.pickFiles();
-    const files = result.files.map((file) => ({
-      ...file,
-      name: splitFileExtension(file.name)
-    }));
 
     if (!result.canceled) {
+      const files = result.files.map((file: AudioFile) => ({
+        ...file,
+        name: splitFileExtension(file.name)
+      }));
       console.log(files);
       addFiles(files);
     }
