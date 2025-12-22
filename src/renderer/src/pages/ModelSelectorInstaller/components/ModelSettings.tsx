@@ -11,8 +11,15 @@ import {
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { useState } from 'react';
+import Language from 'src/types/Language';
 
-const ModelSettings = ({ isCudaAvailable, languages }) => {
+const ModelSettings = ({
+  isCudaAvailable,
+  languages
+}: {
+  isCudaAvailable: boolean | undefined;
+  languages: Language[];
+}) => {
   const [language, setLanguage] = useState<string>('auto');
   const [device, setDevice] = useState<string>('cpu');
   const [beamSize, setBeamSize] = useState<number>(4);
@@ -48,7 +55,7 @@ const ModelSettings = ({ isCudaAvailable, languages }) => {
             value={device}
           >
             <MenuItem value={'cpu'}>CPU</MenuItem>
-            <MenuItem disabled={isCudaAvailable} value={'cuda'}>
+            <MenuItem disabled={!isCudaAvailable} value={'cuda'}>
               GPU (CUDA)
             </MenuItem>
           </Select>

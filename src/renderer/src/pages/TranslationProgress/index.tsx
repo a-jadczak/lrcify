@@ -4,11 +4,11 @@ import { useContext, useEffect, useState } from 'react';
 import StepperContext from '@renderer/contexts/StepperContext';
 
 const TranslationProgress = () => {
-  const { setNextStepAvalible } = useContext(StepperContext)!;
+  const { setNextStepAvailable } = useContext(StepperContext)!;
   const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
-    setNextStepAvalible(!isTranslating);
+    setNextStepAvailable(!isTranslating);
   }, [isTranslating]);
 
   return (

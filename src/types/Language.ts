@@ -1,5 +1,6 @@
 interface Language {
-  [code: string]: string;
+  iso: string;
+  name: string;
 }
 
 export default Language;

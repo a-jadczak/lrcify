@@ -8,7 +8,7 @@ import ModelSettings from './components/ModelSettings';
 import { CircularProgress } from '@mui/material';
 
 const ModelSelectorInstaller = (): React.JSX.Element => {
-  const { setNextStepAvalible } = useContext(StepperContext)!;
+  const { setNextStepAvailable, setPreviousStepAvailable } = useContext(StepperContext)!;
 
   const { transcribeSettings, languages, isCudaAvailable, setTranscribeSettings } =
     useTranscribeSettings();
@@ -23,12 +23,15 @@ const ModelSelectorInstaller = (): React.JSX.Element => {
   } = useModelData();
 
   useEffect(() => {
-    setNextStepAvalible(selectedModel != null && !isInstalling);
-  }, [selectedModel, isInstalling]);
+    setNextStepAvailable(selectedModel != null && !isInstalling && isModelInstalled === 'yes');
+  }, [selectedModel, isInstalling, isModelInstalled]);
+
+  useEffect(() => {
+    setPreviousStepAvailable(!isInstalling);
+  }, [isInstalling]);
 
   return (
     <>
-      {/* TODO: Make default array instead of map. for rendering */}
       <ModelSelect modelsData={modelsData} setModel={setModel} isInstalling={isInstalling} />
 
       {isModelInstalled === 'awaiting' ? (

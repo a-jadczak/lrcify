@@ -8,10 +8,10 @@ import './styles.css';
 
 const UploadPage = (): React.JSX.Element => {
   const { files, deleteFile } = useContext(FilesContext)!;
-  const { setNextStepAvalible } = useContext(StepperContext)!;
+  const { setNextStepAvailable } = useContext(StepperContext)!;
 
   useEffect(() => {
-    setNextStepAvalible(files.length >= 1);
+    setNextStepAvailable(files.length >= 1);
   }, [files]);
 
   return (

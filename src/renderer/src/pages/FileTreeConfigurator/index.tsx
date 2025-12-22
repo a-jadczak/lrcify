@@ -10,7 +10,7 @@ import OutputOptions from './components/OutputOptions';
 
 const FileTreeConfigurator = () => {
   const { files, outputPath, setOutputPath } = useContext(FilesContext)!;
-  const { setNextStepAvalible } = useContext(StepperContext)!;
+  const { setNextStepAvailable } = useContext(StepperContext)!;
 
   const [placeInFolders, setPlaceInFolders] = useState(true);
   const [includeSourceFiles, setIncludeSourceFiles] = useState(true);
@@ -21,11 +21,11 @@ const FileTreeConfigurator = () => {
     if (dir.canceled) return;
 
     setOutputPath(dir.filePaths[0]);
-    setNextStepAvalible(!isEmpty(dir.filePaths[0]));
+    setNextStepAvailable(!isEmpty(dir.filePaths[0]));
   };
 
   useEffect(() => {
-    setNextStepAvalible(!isEmpty(outputPath));
+    setNextStepAvailable(!isEmpty(outputPath));
   }, []);
 
   return (

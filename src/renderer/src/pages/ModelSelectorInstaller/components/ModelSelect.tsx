@@ -7,6 +7,7 @@ import {
   Typography
 } from '@mui/material';
 import ModelData from '@renderer/types/ModelData';
+import { useState } from 'react';
 
 interface ModelSelectProps {
   modelsData: ModelData[] | undefined;
@@ -15,6 +16,8 @@ interface ModelSelectProps {
 }
 
 const ModelSelect = ({ modelsData, setModel, isInstalling }: ModelSelectProps) => {
+  const [selectedModel, setSelectedModel] = useState<string>('');
+
   return (
     <>
       <Typography component="h2" variant="h4">
@@ -31,11 +34,12 @@ const ModelSelect = ({ modelsData, setModel, isInstalling }: ModelSelectProps) =
         <Select
           onChange={(e: SelectChangeEvent<string>) => {
             setModel(e.target.value);
+            setSelectedModel(e.target.value);
           }}
           labelId="model-label"
           label="Model"
           disabled={isInstalling}
-          value=""
+          value={selectedModel}
         >
           {modelsData?.map(({ name }) => (
             <MenuItem key={name} value={name}>

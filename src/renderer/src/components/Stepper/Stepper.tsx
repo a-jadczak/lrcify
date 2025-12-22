@@ -10,7 +10,8 @@ interface StepperProps {
 
 const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
   const [activeStep, setActiveStep] = useState(2);
-  const [nextStepAvalible, setNextStepAvalible] = useState<boolean>(false);
+  const [nextStepAvailable, setNextStepAvailable] = useState<boolean>(false);
+  const [previousStepAvailable, setPreviousStepAvailable] = useState<boolean>(false);
 
   return (
     <Box className="stepper-container">
@@ -22,14 +23,16 @@ const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
         ))}
       </StepperMUI>
 
-      <StepperContext.Provider value={{ setActiveStep, setNextStepAvalible }}>
+      <StepperContext.Provider
+        value={{ setActiveStep, setNextStepAvailable, setPreviousStepAvailable }}
+      >
         <Box className="stepper-children">{steps[activeStep].component}</Box>
       </StepperContext.Provider>
 
       <Box className="stepper-buttons">
         {steps[activeStep].backButton && (
           <Button
-            disabled={activeStep === 0}
+            disabled={!previousStepAvailable || activeStep === 0}
             onClick={() => setActiveStep((prev) => prev - 1)}
             variant="contained"
           >
@@ -38,7 +41,7 @@ const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
         )}
         {!(activeStep === steps.length - 1) && (
           <Button
-            disabled={!nextStepAvalible || activeStep === steps.length - 1}
+            disabled={!nextStepAvailable || activeStep === steps.length - 1}
             onClick={() => setActiveStep((prev) => prev + 1)}
             variant="contained"
           >

@@ -11,6 +11,7 @@ const useTranscribeSettings = () => {
     Promise.all([window.api.getLanguages(), window.api.getIsCudaAvailable()])
       .then(([langs, cuda]) => {
         setLanguages(langs);
+        console.log(cuda);
         setIsCudaAvailable(cuda);
       })
       .catch((err) => console.error('Error:', err));
