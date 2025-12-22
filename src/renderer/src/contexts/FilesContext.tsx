@@ -1,4 +1,5 @@
-import { getFileName } from './../utils/stringUtils';
+import { ForkRight } from '@mui/icons-material';
+import { getFileExtension, getFileName, splitFileExtension } from './../utils/stringUtils';
 import { createContext, useState, ReactNode } from 'react';
 import AudioFile from 'src/types/AudioFile';
 
@@ -20,10 +21,27 @@ export const FilesProvider = ({ children }: { children: ReactNode }) => {
   const [files, setFilesState] = useState<AudioFile[]>([]);
   const [outputPath, setOutputPath] = useState<string>('');
 
-  const setFiles = (newFiles: AudioFile[]) => setFilesState(newFiles);
+  const setFiles = (newFiles: AudioFile[]) => {
+    const filesCopy = [...newFiles];
+
+    for (let i = 0; i < filesCopy.length; i++) {
+      let duplicateCount = 1;
+      for (let j = 0; j < filesCopy.length; j++) {
+        if (filesCopy[i].name === filesCopy[j].name && filesCopy[i].id !== filesCopy[j].id) {
+          filesCopy[j].name =
+            `${splitFileExtension(filesCopy[j].name)} (${duplicateCount}).${getFileExtension(filesCopy[j].name)}`;
+          duplicateCount++;
+        }
+      }
+    }
+    console.log(filesCopy);
+    setFilesState(filesCopy);
+  };
 
   const addFile = (file: AudioFile) => setFilesState((files) => [...files, file]);
-  const addFiles = (newFiles: AudioFile[]) => setFilesState((files) => [...files, ...newFiles]);
+  const addFiles = (newFiles: AudioFile[]) => {
+    setFiles([...files, ...newFiles]);
+  };
   const deleteFile = (fileToDelete: AudioFile) =>
     setFilesState(files.filter((file) => file.id !== fileToDelete.id));
   const clearFiles = () => setFilesState([]);

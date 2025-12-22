@@ -15,7 +15,7 @@ interface FileItemProps {
 const FileItem: React.FC<FileItemProps> = ({ file, placeInFolders, includeSourceFiles }) => {
   return (
     <Box key={file.id}>
-      {placeInFolders && <IconLabel text={'Folder'} icon={<FolderIcon />} />}
+      {placeInFolders && <IconLabel text={file.name} icon={<FolderIcon />} />}
       <Box className={`${placeInFolders && 'folder'}`}>
         <IconLabel text={`${splitFileExtension(file.name)}.lrc`} icon={<DescriptionIcon />} />
         {includeSourceFiles && <IconLabel text={`${file.name}`} icon={<AudioFileIcon />} />}
