@@ -13,12 +13,13 @@ interface FileItemProps {
 }
 
 const FileItem: React.FC<FileItemProps> = ({ file, placeInFolders, includeSourceFiles }) => {
+  const { id, name, type } = file;
   return (
-    <Box key={file.id}>
-      {placeInFolders && <IconLabel text={file.name} icon={<FolderIcon />} />}
+    <Box key={id}>
+      {placeInFolders && <IconLabel text={name} icon={<FolderIcon />} />}
       <Box className={`${placeInFolders && 'folder'}`}>
-        <IconLabel text={`${splitFileExtension(file.name)}.lrc`} icon={<DescriptionIcon />} />
-        {includeSourceFiles && <IconLabel text={`${file.name}`} icon={<AudioFileIcon />} />}
+        <IconLabel text={`${splitFileExtension(name)}.lrc`} icon={<DescriptionIcon />} />
+        {includeSourceFiles && <IconLabel text={`${name}.${type}`} icon={<AudioFileIcon />} />}
       </Box>
     </Box>
   );

@@ -1,5 +1,4 @@
-import { ForkRight } from '@mui/icons-material';
-import { getFileExtension, getFileName, splitFileExtension } from './../utils/stringUtils';
+import { getFileName, splitFileExtension } from './../utils/stringUtils';
 import { createContext, useState, ReactNode } from 'react';
 import AudioFile from 'src/types/AudioFile';
 
@@ -8,7 +7,6 @@ interface FilesContextType {
   outputPath: string;
   setOutputPath: (path: string) => void;
   setFiles: (files: AudioFile[]) => void;
-  addFile: (file: AudioFile) => void;
   addFiles: (files: AudioFile[]) => void;
   deleteFile: (file: AudioFile) => void;
   clearFiles: () => void;
@@ -25,12 +23,9 @@ export const FilesProvider = ({ children }: { children: ReactNode }) => {
     const filesCopy = [...newFiles];
 
     for (let i = 0; i < filesCopy.length; i++) {
-      let duplicateCount = 1;
       for (let j = 0; j < filesCopy.length; j++) {
         if (filesCopy[i].name === filesCopy[j].name && filesCopy[i].id !== filesCopy[j].id) {
-          filesCopy[j].name =
-            `${splitFileExtension(filesCopy[j].name)} (${duplicateCount}).${getFileExtension(filesCopy[j].name)}`;
-          duplicateCount++;
+          filesCopy[j].name = `${splitFileExtension(filesCopy[j].name)} - Copy`;
         }
       }
     }
@@ -38,7 +33,6 @@ export const FilesProvider = ({ children }: { children: ReactNode }) => {
     setFilesState(filesCopy);
   };
 
-  const addFile = (file: AudioFile) => setFilesState((files) => [...files, file]);
   const addFiles = (newFiles: AudioFile[]) => {
     setFiles([...files, ...newFiles]);
   };
@@ -56,7 +50,6 @@ export const FilesProvider = ({ children }: { children: ReactNode }) => {
         setFiles,
         addFiles,
         deleteFile,
-        addFile,
         clearFiles,
         getFileNames
       }}
