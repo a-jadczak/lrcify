@@ -15,7 +15,3 @@ def get_model_languages():
   languages_with_codes = [{"iso": c, "name": code_to_name(c)} for c in languages if code_to_name(c)]
 
   return languages_with_codes
-
-@router.post("/transcribe")
-def transcribe_audio_to_lrc(audio_files: List[str], place_in_folder: bool, include_source_files: bool, config: TranscriptionConfig):
-  pass
