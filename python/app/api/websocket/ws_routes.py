@@ -22,8 +22,11 @@ async def ws_download(websocket: WebSocket, model_name: str):
 
 
 @router.websocket("/transcribe")
-async def transcribe_audio_to_lrc(websocket: WebSocket, audio_files: List[AudioFile], output_settings: OutputSettings, config: TranscriptionConfig):
-  
+async def transcribe_audio_to_lrc(websocket: WebSocket, 
+                                  audio_files: List[AudioFile], output_settings: OutputSettings, config: TranscriptionConfig):
+  await websocket.accept()
+  data = await websocket.receive_json()
+
   for audio_file in audio_files:
     if output_settings.place_in_folder:
       output_settings.path = create_folder(output_settings.path, audio_file.name)

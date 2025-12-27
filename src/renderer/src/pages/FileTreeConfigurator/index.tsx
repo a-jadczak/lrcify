@@ -7,13 +7,16 @@ import StepperContext from '@renderer/contexts/StepperContext';
 import DirectoryInput from './components/DirectoryInput';
 import FileItem from './components/FileItem';
 import OutputOptions from './components/OutputOptions';
+import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
 
 const FileTreeConfigurator = () => {
-  const { files, outputPath, setOutputPath } = useContext(FilesContext)!;
+  const { files } = useContext(FilesContext)!;
   const { setNextStepAvailable } = useContext(StepperContext)!;
+  const { setOutputConfig } = useContext(FullTranscriptionConfigContext)!;
 
   const [placeInFolders, setPlaceInFolders] = useState(true);
   const [includeSourceFiles, setIncludeSourceFiles] = useState(true);
+  const [outputPath, setOutputPath] = useState('');
 
   const setSelectedPath = async () => {
     const dir = await window.api.pickDirectory();
@@ -23,6 +26,11 @@ const FileTreeConfigurator = () => {
     setOutputPath(dir.filePaths[0]);
     setNextStepAvailable(!isEmpty(dir.filePaths[0]));
   };
+
+  useEffect(() => {
+    console.log({ placeInFolders, includeSourceFiles, outputPath });
+    setOutputConfig({ placeInFolders, includeSourceFiles, outputPath });
+  }, [placeInFolders, includeSourceFiles, outputPath]);
 
   useEffect(() => {
     setNextStepAvailable(!isEmpty(outputPath));

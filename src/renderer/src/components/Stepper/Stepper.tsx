@@ -9,7 +9,7 @@ interface StepperProps {
 }
 
 const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
-  const [activeStep, setActiveStep] = useState(2);
+  const [activeStep, setActiveStep] = useState(3);
   const [nextStepAvailable, setNextStepAvailable] = useState<boolean>(false);
   const [previousStepAvailable, setPreviousStepAvailable] = useState<boolean>(false);
 

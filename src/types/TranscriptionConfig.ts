@@ -1,8 +1,8 @@
-interface TranscribeSettings {
+interface TranscriptionConfig {
   device: 'cpu' | 'cuda';
   model: string;
   languageISO: string;
   beamSize: number;
 }
 
-export default TranscribeSettings;
+export default TranscriptionConfig;

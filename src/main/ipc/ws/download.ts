@@ -4,7 +4,7 @@ import WebSocket from 'ws';
 export const registerDownloadWS = (mainWindow: BrowserWindow) => {
   let ws: WebSocket | null = null;
 
-  ipcMain.handle('ws-connect', async (event, url: string) => {
+  ipcMain.handle('ws-connect', async (_event, url: string) => {
     if (ws) {
       ws.close();
       ws = null;

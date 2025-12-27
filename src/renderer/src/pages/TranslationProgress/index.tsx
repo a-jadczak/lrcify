@@ -2,14 +2,21 @@ import { Box, CircularProgress, LinearProgress, Stack, Typography } from '@mui/m
 import './styles.css';
 import { useContext, useEffect, useState } from 'react';
 import StepperContext from '@renderer/contexts/StepperContext';
+import useTranscribe from './hooks/useTranscribe';
 
 const TranslationProgress = () => {
+  const { transcribe } = useTranscribe();
+
   const { setNextStepAvailable } = useContext(StepperContext)!;
   const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
     setNextStepAvailable(!isTranslating);
   }, [isTranslating]);
+
+  useEffect(() => {
+    console.log(' ...');
+  }, []);
 
   return (
     <>

@@ -4,8 +4,6 @@ import AudioFile from 'src/types/AudioFile';
 
 interface FilesContextType {
   files: AudioFile[];
-  outputPath: string;
-  setOutputPath: (path: string) => void;
   setFiles: (files: AudioFile[]) => void;
   addFiles: (files: AudioFile[]) => void;
   deleteFile: (file: AudioFile) => void;
@@ -17,7 +15,6 @@ export const FilesContext = createContext<FilesContextType | undefined>(undefine
 
 export const FilesProvider = ({ children }: { children: ReactNode }) => {
   const [files, setFilesState] = useState<AudioFile[]>([]);
-  const [outputPath, setOutputPath] = useState<string>('');
 
   const setFiles = (newFiles: AudioFile[]) => {
     const filesCopy = [...newFiles];
@@ -45,8 +42,6 @@ export const FilesProvider = ({ children }: { children: ReactNode }) => {
     <FilesContext.Provider
       value={{
         files,
-        outputPath,
-        setOutputPath,
         setFiles,
         addFiles,
         deleteFile,
