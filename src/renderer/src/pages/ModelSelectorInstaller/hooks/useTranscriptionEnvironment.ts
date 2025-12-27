@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import TranscriptionConfig from 'src/types/TranscriptionConfig';
 import Language from 'src/types/Language';
 
-const useTranscribeSettings = () => {
-  const [transcribeSettings, setTranscribeSettings] = useState<TranscriptionConfig>();
+const useTranscriptionEnvironment = () => {
   const [isCudaAvailable, setIsCudaAvailable] = useState<boolean>();
   const [languages, setLanguages] = useState<Language[]>([]);
 
@@ -17,7 +15,7 @@ const useTranscribeSettings = () => {
       .catch((err) => console.error('Error:', err));
   }, []);
 
-  return { transcribeSettings, setTranscribeSettings, languages, isCudaAvailable };
+  return { languages, isCudaAvailable };
 };
 
-export default useTranscribeSettings;
+export default useTranscriptionEnvironment;

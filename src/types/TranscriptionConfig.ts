@@ -1,5 +1,7 @@
+import Device from './Device';
+
 interface TranscriptionConfig {
-  device: 'cpu' | 'cuda';
+  device: Device;
   model: string;
   languageISO: string;
   beamSize: number;

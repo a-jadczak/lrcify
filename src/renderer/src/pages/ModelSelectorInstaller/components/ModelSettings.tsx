@@ -10,20 +10,23 @@ import {
   Typography
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import { useState } from 'react';
 import Language from 'src/types/Language';
+import ModelConfig from '../types/ModelConfig';
+import Device from 'src/types/Device';
+
+interface ModelSettingsProps {
+  modelConfig: ModelConfig;
+  setModelConfig: React.Dispatch<React.SetStateAction<ModelConfig>>;
+  isCudaAvailable?: boolean;
+  languages: Language[];
+}
 
 const ModelSettings = ({
+  modelConfig,
+  setModelConfig,
   isCudaAvailable,
   languages
-}: {
-  isCudaAvailable: boolean | undefined;
-  languages: Language[];
-}) => {
-  const [language, setLanguage] = useState<string>('auto');
-  const [device, setDevice] = useState<string>('cpu');
-  const [beamSize, setBeamSize] = useState<number>(4);
-
+}: ModelSettingsProps) => {
   return (
     <>
       <Box
@@ -47,12 +50,15 @@ const ModelSettings = ({
           </InputLabel>
           <Select
             onChange={(e: SelectChangeEvent<string>) => {
-              setDevice(e.target.value);
+              setModelConfig((prev: ModelConfig) => ({
+                ...prev,
+                device: e.target.value as Device
+              }));
             }}
             labelId="device-label"
             label="Device"
             size="small"
-            value={device}
+            value={modelConfig.device}
           >
             <MenuItem value={'cpu'}>CPU</MenuItem>
             <MenuItem disabled={!isCudaAvailable} value={'cuda'}>
@@ -66,12 +72,12 @@ const ModelSettings = ({
           </InputLabel>
           <Select
             onChange={(e: SelectChangeEvent<string>) => {
-              setLanguage(e.target.value);
+              setModelConfig((prev) => ({ ...prev, languageISO: e.target.value }));
             }}
             labelId="language-label"
             label="Language"
             size="small"
-            value={language}
+            value={modelConfig.languageISO}
           >
             <MenuItem value={'auto'} defaultChecked={true}>
               Auto
@@ -97,9 +103,9 @@ const ModelSettings = ({
         </Typography>
         <Slider
           aria-label="Beam size"
-          defaultValue={beamSize}
+          defaultValue={modelConfig.beamSize}
           onChange={(_event, value) => {
-            setBeamSize(value);
+            setModelConfig((prev) => ({ ...prev, beamSize: value }));
           }}
           valueLabelDisplay="auto"
           marks
