@@ -13,6 +13,12 @@ const ws = {
     console.log(`PRELOAD! after`);
   },
 
+  onOpen: (cb: () => void) => {
+    ipcRenderer.on('ws-status', (_, status) => {
+      if (status === 'open') cb();
+    });
+  },
+
   onStatus: (cb: (status: string) => void) =>
     ipcRenderer.on('ws-status', (_, status) => cb(status)),
 

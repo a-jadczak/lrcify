@@ -14,10 +14,6 @@ const TranslationProgress = () => {
     setNextStepAvailable(!isTranslating);
   }, [isTranslating]);
 
-  useEffect(() => {
-    console.log(' ...');
-  }, []);
-
   return (
     <>
       <Box sx={{ display: 'flex' }}>

@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from pathlib import Path
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import models, cuda, transcription
 from app.api.websocket import ws_routes

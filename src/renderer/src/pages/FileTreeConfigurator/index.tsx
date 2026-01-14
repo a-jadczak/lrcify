@@ -36,6 +36,7 @@ const FileTreeConfigurator = () => {
     setNextStepAvailable(!isEmpty(outputPath));
   }, []);
 
+  // TODO: Refactor ouput options
   return (
     <>
       <Typography component="h2" variant="h4">
