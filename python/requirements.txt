@@ -9,3 +9,4 @@ pycountry
 pytest
 websockets
 mutagen
+aiohttp

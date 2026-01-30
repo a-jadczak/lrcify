@@ -4,10 +4,9 @@ import { registerModelAPIHandlers } from './api/endpoints/modelSettings';
 import { registerDownloadWS } from './ws/download';
 import { BrowserWindow } from 'electron';
 
-export const registerIPCHandlers = (mainWindow: BrowserWindow) => {
+export const registerIPCHandlers = (mainWindow: BrowserWindow, ws: WebSocket) => {
   registerFileDialogHandlers();
   registerAPIHandlers();
   registerModelAPIHandlers();
-
-  registerDownloadWS(mainWindow);
+  registerDownloadWS(mainWindow, ws);
 };

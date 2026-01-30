@@ -17,6 +17,8 @@ async def ws_endpoint(ws: WebSocket):
     while True:
       data = json.loads(await ws.receive_text())
       msg_type = data.get("type")
+      
+      print("msg_type: " + msg_type)
 
       handler = handlers.get(msg_type)
       if handler:

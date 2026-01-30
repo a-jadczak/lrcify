@@ -21,10 +21,6 @@ const useTranscribe = () => {
     };
     window.ws.connect('ws://localhost:8000/ws/transcribe');
 
-    window.ws.onOpen(() => {
-      window.ws.send(JSON.stringify(data));
-    });
-
     window.ws.onMessage((msg) => {
       console.log('Received:', msg);
     });

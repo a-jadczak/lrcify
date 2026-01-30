@@ -4,6 +4,8 @@ import './ipc/api/endpoints/transcribeSettings';
 import { registerIPCHandlers } from './ipc';
 import { createMainWindow } from './windows/mainWindow';
 
+let ws: WebSocket = new WebSocket(`ws://localhost:8000/ws`);
+
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.electron');
 
@@ -13,7 +15,7 @@ app.whenReady().then(() => {
   });
 
   const window = createMainWindow();
-  registerIPCHandlers(window);
+  registerIPCHandlers(window, ws);
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createMainWindow();

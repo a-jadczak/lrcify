@@ -1,9 +1,12 @@
+import { WSContext } from '@renderer/contexts/WebSocketProvider';
 import ModelData from '@renderer/types/ModelData';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 type ModelInstalled = 'yes' | 'no' | 'awaiting';
 
 const useModelData = () => {
+  const { send, registerHandler } = useContext(WSContext);
+
   const [modelsData, setModelsData] = useState<ModelData[]>();
   const [selectedModel, setSelectedModel] = useState<ModelData | null>();
 
@@ -33,26 +36,38 @@ const useModelData = () => {
       .then((value) => setIsModelInstalled(value ? 'yes' : 'no'));
   };
 
-  const installModel = () => {
-    setIsInstalling(true);
-    window.ws.connect(`ws://localhost:8000/ws/download/${selectedModel?.name}`);
-
+  useEffect(() => {
     window.ws.onMessage((data: string) => {
-      const parsed = JSON.parse(data);
-      if (parsed.status === 'progress') {
-        console.log(parsed);
-        setDownloadProgress({ ...parsed });
-      } else if (parsed.status === 'complete') {
-        onInstalled();
+      console.log('Renderer:', data);
+      const { status, downloaded, percent } = JSON.parse(data);
+
+      switch (status) {
+        case 'progress':
+          setDownloadProgress({ downloaded, percent });
+          break;
+        case 'complete':
+          onInstalled();
+          break;
+        case 'error':
+          console.error('WS error');
+          setIsInstalling(false);
+          break;
       }
     });
+  }, []);
 
-    window.ws.onStatus((status) => console.log('WS Status:', status));
-    window.ws.onError((err) => console.error('WS Error:', err));
+  const installModel = () => {
+    if (!selectedModel) return;
+
+    setIsInstalling(true);
+
+    send({
+      type: 'download',
+      model_name: selectedModel.name
+    });
   };
 
   const onInstalled = () => {
-    console.log('process completed');
     setIsInstalling(false);
     setIsModelInstalled('yes');
     setDownloadProgress({ downloaded: 0, percent: 0 });
