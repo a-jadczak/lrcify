@@ -1,6 +1,6 @@
-import FileTreeConfigurator from '../pages/FileTreeConfigurator';
-import ModelSelectorInstaller from '../pages/ModelSelectorInstaller';
-import TranslationProgress from '../pages/TranslationProgress';
+import OutputFileConfigurationPage from '../pages/OutputFileConfigurationPage';
+import ModelSelectorInstaller from '../pages/ModelSelectionPage';
+import TranslationPage from '../pages/TranslationPage';
 import CompletionPage from '@renderer/pages/CompletionPage';
 import UploadPage from '@renderer/pages/UploadPage';
 import Step from 'src/types/Step';
@@ -13,7 +13,7 @@ export const steps: Step[] = [
   },
   {
     name: 'Output',
-    component: <FileTreeConfigurator />,
+    component: <OutputFileConfigurationPage />,
     backButton: true
   },
   {
@@ -23,7 +23,7 @@ export const steps: Step[] = [
   },
   {
     name: 'Translation',
-    component: <TranslationProgress />,
+    component: <TranslationPage />,
     backButton: false
   },
   {

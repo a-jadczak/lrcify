@@ -5,7 +5,7 @@ from fastapi import WebSocket
 from app.constants.hf_repo import MODEL_FILE_NAME
 from app.helpers.path_helpers import get_model_dir
 from app.helpers.model_helpers import get_model_info, get_repo_id
-from app.utils.download_utils import bytes_to_megabytes, download_percent
+from app.utils.conversions import bytes_to_megabytes, percent as calc_percent
 
 
 def push_to_end(file_list, name):
@@ -31,7 +31,7 @@ async def download_file(f, snapshot_dir: Path, total_size: int, websocket: WebSo
           fd.write(chunk)
           downloaded += len(chunk)
 
-          percent = download_percent(downloaded, total_size)
+          percent = calc_percent(downloaded, total_size)
           await websocket.send_json({
             "status": "progress",
             "downloaded": round(bytes_to_megabytes(downloaded), 2),
@@ -59,4 +59,4 @@ async def download_hf_repo_to_cache(model_name: str, websocket: WebSocket):
     await download_file(file, snapshot_dir, total_size, websocket, repo_id)
   
   # Notify completion
-  await websocket.send_json({"status": "complete"})
+  await websocket.send_json({"status": "completed"})

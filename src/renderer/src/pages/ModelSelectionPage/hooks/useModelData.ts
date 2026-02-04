@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 type ModelInstalled = 'yes' | 'no' | 'awaiting';
 
 const useModelData = () => {
-  const { send, registerHandler } = useContext(WSContext);
+  const { send } = useContext(WSContext);
 
   const [modelsData, setModelsData] = useState<ModelData[]>();
   const [selectedModel, setSelectedModel] = useState<ModelData | null>();
@@ -37,7 +37,7 @@ const useModelData = () => {
   };
 
   useEffect(() => {
-    window.ws.onMessage((data: string) => {
+    const off = window.ws.onMessage((data: string) => {
       console.log('Renderer:', data);
       const { status, downloaded, percent } = JSON.parse(data);
 
@@ -45,7 +45,7 @@ const useModelData = () => {
         case 'progress':
           setDownloadProgress({ downloaded, percent });
           break;
-        case 'complete':
+        case 'completed':
           onInstalled();
           break;
         case 'error':
@@ -54,6 +54,8 @@ const useModelData = () => {
           break;
       }
     });
+
+    return off;
   }, []);
 
   const installModel = () => {

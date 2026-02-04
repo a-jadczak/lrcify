@@ -4,8 +4,8 @@ import { useContext, useEffect, useState } from 'react';
 import StepperContext from '@renderer/contexts/StepperContext';
 import useTranscribe from './hooks/useTranscribe';
 
-const TranslationProgress = () => {
-  const { transcribe } = useTranscribe();
+const TranslationPage = () => {
+  const { currentTrackInfo, elapsedTime, lyrics, tracks, tracksTranscribed } = useTranscribe();
 
   const { setNextStepAvailable } = useContext(StepperContext)!;
   const [isTranslating, setIsTranslating] = useState(false);
@@ -30,27 +30,33 @@ const TranslationProgress = () => {
               mr: 2
             }}
           >
-            <Typography variant="body2">1 of 10 tracks</Typography>
-            <LinearProgress variant="determinate" value={10} sx={{ flex: 1 }} />
+            <Typography variant="body2">
+              {tracksTranscribed} of {tracks.length} tracks
+            </Typography>
+            <LinearProgress
+              variant="determinate"
+              value={(tracksTranscribed * 100) / tracks.length}
+              sx={{ flex: 1 }}
+            />
           </Box>
           <Typography variant="body1" color="text.secondary">
-            Current track: track.mp3
+            Current track: {currentTrackInfo?.track}
           </Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
-            <Typography variant="caption">Elapsed: 0:00</Typography>
-            <Typography variant="caption">Total: 5:23</Typography>
+            <Typography variant="caption">Elapsed: {elapsedTime}</Typography>
+            <Typography variant="caption">Total: {currentTrackInfo?.totalLength}</Typography>
           </Stack>
         </Box>
         <Box sx={{ flex: 2 }} className="output-box">
           <Box className="output-shadow-box"></Box>
           <CircularProgress sx={{ position: 'absolute', bottom: 0, right: 0, margin: '1em' }} />
-          <span>[hh:mm:ss] Hello</span>
-          <span>[hh:mm:ss] What's</span>
-          <span>[hh:mm:ss] Going</span>
+          {lyrics?.map((text) => (
+            <span>{text}</span>
+          ))}
         </Box>
       </Box>
     </>
   );
 };
 
-export default TranslationProgress;
+export default TranslationPage;

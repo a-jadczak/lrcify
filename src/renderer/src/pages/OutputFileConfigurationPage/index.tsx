@@ -9,7 +9,7 @@ import FileItem from './components/FileItem';
 import OutputOptions from './components/OutputOptions';
 import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
 
-const FileTreeConfigurator = () => {
+const OutputFileConfigurationPage = () => {
   const { files } = useContext(FilesContext)!;
   const { setNextStepAvailable } = useContext(StepperContext)!;
   const { setOutputConfig } = useContext(FullTranscriptionConfigContext)!;
@@ -65,4 +65,4 @@ const FileTreeConfigurator = () => {
   );
 };
 
-export default FileTreeConfigurator;
+export default OutputFileConfigurationPage;

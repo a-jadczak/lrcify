@@ -1,5 +1,5 @@
 from app.constants.hf_repo import REPO, MODEL_FILE_NAME
-from app.utils.download_utils import bytes_to_megabytes
+from app.utils.conversions import bytes_to_megabytes
 from app.utils.sha import sha256_file
 from app.helpers.path_helpers import get_model_path
 from app.helpers.model_helpers import get_model_info, get_models

@@ -1,7 +1,3 @@
-import { useCallback, useEffect, useRef } from 'react';
-
-type MessageHandler = (data: any) => void;
-
 export const useWebSocket = () => {
   const send = (message: any) => {
     try {

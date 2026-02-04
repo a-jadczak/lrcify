@@ -1,11 +1,14 @@
-import json
+import asyncio
+import os
+from pathlib import Path
+import shutil
 from faster_whisper import WhisperModel
-from app.schemas.transcription_config import TranscriptionConfig
-from app.services.transcriptor.helpers.time import calculate_timestamp
-from app.schemas.audio_file import AudioFile
-from app.schemas.output_settings import OutputSettings
+from app.schemas.transcription.config import TranscriptionConfig
+from app.services.transcriptor.helpers.time import calculate_timestamp, format_time
+from app.schemas.transcription.audio import AudioFile
+from app.schemas.transcription.output import OutputSettings
 from fastapi import WebSocket
-from app.utils.fs import audio_length, copy_file
+from app.utils.fs import audio_length, copy_file, safe_copy_file
 
 # USER DATA FROM FRONT END:
 # - model
@@ -19,37 +22,47 @@ from app.utils.fs import audio_length, copy_file
 
 # - audio files
 
-async def audio_to_lrc(audio_file: AudioFile, output_settings: OutputSettings, config: TranscriptionConfig, websocket: WebSocket):
-  final_output_path = output_settings.path / f"{audio_file.name}.lrc"
+async def audio_to_lrc(audio_file: AudioFile, 
+                       output_settings: OutputSettings,
+                       output_path: str,
+                       config: TranscriptionConfig, 
+                       ws: WebSocket):
+  final_output_path = Path(os.path.join(output_path, f"{audio_file.name}.lrc"))
 
   if output_settings.include_source_files:
-    target_path = output_settings.path / f"{audio_file.name}.{audio_file.type}"
-    copy_file(audio_file.path, target_path)
+    shutil.copy2(audio_file.path, output_path)
 
-  await websocket.send_text(json.dumps({
-    "status": "strating-translating", 
+  await ws.send_json({
+    "status": "starting-translating", 
     "track": audio_file.name,
-    "total-length": audio_length(audio_file.path) / 60,
-  }))
+    "totalLength": format_time(audio_length(audio_file.path)),
+  })
 
   model = WhisperModel(config.model_path, config.device, compute_type="float32")
-  segments, info = model.transcribe(audio_file.path, config.beam_size, config.language, task="transcribe")
+  segments, info = model.transcribe(
+    audio_file.path,
+    beam_size=config.beam_size,
+    language=None if config.language == "auto" else config.language,
+    task="transcribe"
+  )
 
   with open(final_output_path, "w", encoding="utf-8") as f:
     for segment in segments:
       start = segment.start
-
       timestamp = calculate_timestamp(start)
-      text = f"{timestamp}{segment.text.strip()}"
+      lyrics = f"{timestamp} {segment.text.strip()}"
+      f.write(f"{lyrics}\n")
+      print(f"{lyrics}")
 
-      f.write(f"{text}\n")
-      print(f"{text}")
-      await websocket.send_text(json.dumps({
-        "status": "translating", 
-        "text": text, 
-      }))
+      await ws.send_json({
+        "status": "translating",
+        "lyrics": lyrics,
+        "elapsedTime": format_time(start),
+      })
+      
+      await asyncio.sleep(0) # WS flush
     
-  await websocket.send_text(json.dumps({
+  await ws.send_json({
     "status": "translated"
-  }))
+  })
   

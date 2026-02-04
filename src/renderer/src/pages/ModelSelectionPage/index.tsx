@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import StepperContext from '@renderer/contexts/StepperContext';
-import useTranscriptionEnvironment from '@renderer/pages/ModelSelectorInstaller/hooks/useTranscriptionEnvironment';
-import useModelData from '@renderer/pages/ModelSelectorInstaller/hooks/useModelData';
+import useTranscriptionEnvironment from '@renderer/pages/ModelSelectionPage/hooks/useTranscriptionEnvironment';
+import useModelData from '@renderer/pages/ModelSelectionPage/hooks/useModelData';
 import ModelSelect from './components/ModelSelect';
 import ModelInstaller from './components/ModelInstaller';
 import ModelSettings from './components/ModelSettings';
@@ -9,7 +9,7 @@ import { CircularProgress } from '@mui/material';
 import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
 import ModelConfig from './types/ModelConfig';
 
-const ModelSelectorInstaller = (): React.JSX.Element => {
+const ModelSelectionPage = (): React.JSX.Element => {
   const { setNextStepAvailable, setPreviousStepAvailable } = useContext(StepperContext)!;
   const { setTranscriptionConfig } = useContext(FullTranscriptionConfigContext)!;
 
@@ -73,4 +73,4 @@ const ModelSelectorInstaller = (): React.JSX.Element => {
   );
 };
 
-export default ModelSelectorInstaller;
+export default ModelSelectionPage;
