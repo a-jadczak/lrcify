@@ -24,19 +24,6 @@ const useTranscribe = () => {
   const [tracks, setTracks] = useState<string[]>([]);
   const [tracksTranscribed, setTracksTranscribed] = useState<number>(0);
 
-  /*
-    number of finished tracks //
-    number of all tracks //
-    list of next tracks //
-
-    Total time: 5:30 //
-    current track name: track.mp3 //
-    
-    
-    Elapsed time: 0:21 //
-    lyrics //
-  */
-
   const transcribe = (
     files: AudioFile[],
     outputConfig: OutputConfig,
@@ -69,6 +56,7 @@ const useTranscribe = () => {
           setLyrics((prev) => [...(prev || []), lyrics]);
           break;
         case 'translated':
+          setLyrics([]);
           break;
         case 'completed':
           off();

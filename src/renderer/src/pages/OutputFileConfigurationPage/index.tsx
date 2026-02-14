@@ -55,6 +55,7 @@ const OutputFileConfigurationPage = () => {
       <Box className="file-tree-result">
         {files.map((file) => (
           <FileItem
+            key={file.id}
             file={file}
             placeInFolders={placeInFolders}
             includeSourceFiles={includeSourceFiles}

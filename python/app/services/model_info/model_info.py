@@ -4,7 +4,6 @@ from app.utils.sha import sha256_file
 from app.helpers.path_helpers import get_model_path
 from app.helpers.model_helpers import get_model_info, get_models
 
-
 def get_models_data():
   faster_whisper_models = get_models()
   models = [m.modelId for m in faster_whisper_models if "faster-whisper" in m.modelId]

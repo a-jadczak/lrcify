@@ -103,7 +103,7 @@ const ModelSettings = ({
         </Typography>
         <Slider
           aria-label="Beam size"
-          defaultValue={modelConfig.beamSize}
+          value={modelConfig.beamSize}
           onChange={(_event, value) => {
             setModelConfig((prev) => ({ ...prev, beamSize: value }));
           }}

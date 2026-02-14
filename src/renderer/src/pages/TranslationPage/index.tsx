@@ -14,6 +14,11 @@ const TranslationPage = () => {
     setNextStepAvailable(!isTranslating);
   }, [isTranslating]);
 
+  const truncateStyles = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  };
   return (
     <>
       <Box sx={{ display: 'flex' }}>
@@ -39,19 +44,50 @@ const TranslationPage = () => {
               sx={{ flex: 1 }}
             />
           </Box>
-          <Typography variant="body1" color="text.secondary">
+          <Typography
+            sx={{
+              width: '30ch',
+              ...truncateStyles,
+              fontSize: '1.2em'
+            }}
+            variant="body1"
+            color="text.secondary"
+          >
             Current track: {currentTrackInfo?.track}
           </Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
             <Typography variant="caption">Elapsed: {elapsedTime}</Typography>
             <Typography variant="caption">Total: {currentTrackInfo?.totalLength}</Typography>
           </Stack>
+          <Box
+            className="tracks-queue"
+            sx={{
+              mt: 1
+            }}
+            color="text.secondary"
+          >
+            {tracks.map((track) => (
+              <Typography
+                sx={{
+                  width: '35ch',
+                  ...truncateStyles
+                }}
+                component={'p'}
+                variant="inherit"
+                key={track}
+              >
+                {track}
+              </Typography>
+            ))}
+          </Box>
         </Box>
         <Box sx={{ flex: 2 }} className="output-box">
           <Box className="output-shadow-box"></Box>
           <CircularProgress sx={{ position: 'absolute', bottom: 0, right: 0, margin: '1em' }} />
           {lyrics?.map((text) => (
-            <span>{text}</span>
+            <Typography component="span" key={text}>
+              {text}
+            </Typography>
           ))}
         </Box>
       </Box>

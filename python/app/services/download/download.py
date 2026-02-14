@@ -7,13 +7,11 @@ from app.helpers.path_helpers import get_model_dir
 from app.helpers.model_helpers import get_model_info, get_repo_id
 from app.utils.conversions import bytes_to_megabytes, percent as calc_percent
 
-
 def push_to_end(file_list, name):
   """Pushes a specific element to the end of a list"""
   other_files = [f for f in file_list if f.rfilename != name]
   model_file = [f for f in file_list if f.rfilename == name]
   return other_files + model_file
-
 
 async def download_file(f, snapshot_dir: Path, total_size: int, websocket: WebSocket, repo_id: str):
   """Asynchronously downloads a single file and sends progress over WebSocket"""
