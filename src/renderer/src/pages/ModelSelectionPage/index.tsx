@@ -43,7 +43,7 @@ const ModelSelectionPage = (): React.JSX.Element => {
       console.log({ ...modelConfig, model: selectedModel.name });
       setTranscriptionConfig({ ...modelConfig, model: selectedModel.name });
     }
-  }, [modelConfig]);
+  }, [modelConfig, selectedModel, setTranscriptionConfig]);
 
   return (
     <>

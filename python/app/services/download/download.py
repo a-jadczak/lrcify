@@ -21,7 +21,9 @@ async def download_file(f, snapshot_dir: Path, total_size: int, websocket: WebSo
   url = hf_hub_url(repo_id, f.rfilename)
   downloaded = 0
 
-  async with aiohttp.ClientSession() as session:
+  headers = {"Accept-Encoding": "identity"}
+
+  async with aiohttp.ClientSession(headers=headers) as session:
     async with session.get(url) as resp:
       resp.raise_for_status()
       with open(full_path, "wb") as fd:

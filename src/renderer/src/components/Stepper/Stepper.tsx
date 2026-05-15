@@ -7,7 +7,9 @@ import StepperContext from '@renderer/contexts/StepperContext';
 interface StepperProps {
   steps: Step[];
 }
-
+/*
+ * This Stepper component was created to recive conditions determined by page components which controls the buttons props here.
+ */
 const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
   const [nextStepAvailable, setNextStepAvailable] = useState<boolean>(false);
@@ -16,9 +18,9 @@ const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
   return (
     <Box className="stepper-container">
       <StepperMUI className="stepper-steps" activeStep={activeStep}>
-        {steps.map((step) => (
-          <StepMUI key={step.name}>
-            <StepLabel>{step.name}</StepLabel>
+        {steps.map(({ name }) => (
+          <StepMUI key={name}>
+            <StepLabel>{name}</StepLabel>
           </StepMUI>
         ))}
       </StepperMUI>

@@ -5,16 +5,16 @@ import StepperContext from '@renderer/contexts/StepperContext';
 import useTranscribe from './hooks/useTranscribe';
 
 const TranslationPage = () => {
-  const { currentTrackInfo, elapsedTime, lyrics, tracks, tracksTranscribed } = useTranscribe();
-
   const { setNextStepAvailable } = useContext(StepperContext)!;
-  const [isTranslating, setIsTranslating] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(true);
+  const { currentTrackInfo, elapsedTime, lyrics, tracks, tracksTranscriptionProgress } =
+    useTranscribe(setIsTranslating);
 
   useEffect(() => {
     setNextStepAvailable(!isTranslating);
   }, [isTranslating]);
 
-  const truncateStyles = {
+  const TruncateStyles = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
@@ -36,18 +36,18 @@ const TranslationPage = () => {
             }}
           >
             <Typography variant="body2">
-              {tracksTranscribed} of {tracks.length} tracks
+              {tracksTranscriptionProgress} of {tracks.length} tracks
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={(tracksTranscribed * 100) / tracks.length}
+              value={(tracksTranscriptionProgress * 100) / tracks.length}
               sx={{ flex: 1 }}
             />
           </Box>
           <Typography
             sx={{
               width: '30ch',
-              ...truncateStyles,
+              ...TruncateStyles,
               fontSize: '1.2em'
             }}
             variant="body1"
@@ -66,19 +66,23 @@ const TranslationPage = () => {
             }}
             color="text.secondary"
           >
-            {tracks.map((track) => (
-              <Typography
-                sx={{
-                  width: '35ch',
-                  ...truncateStyles
-                }}
-                component={'p'}
-                variant="inherit"
-                key={track}
-              >
-                {track}
-              </Typography>
-            ))}
+            {tracks.map((track, i) => {
+              if (tracksTranscriptionProgress > i) return;
+
+              return (
+                <Typography
+                  sx={{
+                    width: '35ch',
+                    ...TruncateStyles
+                  }}
+                  component={'p'}
+                  variant="inherit"
+                  key={track}
+                >
+                  {track}
+                </Typography>
+              );
+            })}
           </Box>
         </Box>
         <Box sx={{ flex: 2 }} className="output-box">

@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Backend (Uvicorn)",
+            "type": "shell",
+            "command": "uvicorn app.main:app --reload",
+            "options": {
+                "cwd": "${workspaceFolder}/python"
+            },
+            "presentation": {
+                "group": "dev-env",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Start Frontend (Electron)",
+            "type": "shell",
+            "command": "npm run dev", 
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "presentation": {
+                "group": "dev-env",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Launch the project",
+            "dependsAll": true,
+            "dependsOn": [
+                "Start Backend (Uvicorn)",
+                "Start Frontend (Electron)"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

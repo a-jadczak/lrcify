@@ -1,7 +1,7 @@
 import { FilesContext } from '@renderer/contexts/FilesContext';
 import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
 import { WSContext } from '@renderer/contexts/WebSocketProvider';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import AudioFile from 'src/types/AudioFile';
 import OutputConfig from 'src/types/OutputConfig';
 import TranscriptionConfig from 'src/types/TranscriptionConfig';
@@ -11,7 +11,7 @@ interface TrackInfo {
   totalLength: number;
 }
 
-const useTranscribe = () => {
+const useTranscribe = (setIsTranslating: React.Dispatch<React.SetStateAction<boolean>>) => {
   const { send } = useContext(WSContext);
 
   const { outputConfig, transcriptionConfig } = useContext(FullTranscriptionConfigContext)!;
@@ -22,7 +22,8 @@ const useTranscribe = () => {
   const [lyrics, setLyrics] = useState<string[]>();
 
   const [tracks, setTracks] = useState<string[]>([]);
-  const [tracksTranscribed, setTracksTranscribed] = useState<number>(0);
+  const [tracksTranscriptionProgress, setTracksTranscriptionProgress] = useState<number>(0);
+  const hasStartedTranscription = useRef(false);
 
   const transcribe = (
     files: AudioFile[],
@@ -47,7 +48,7 @@ const useTranscribe = () => {
         case 'starting-translating':
           const { track, totalLength } = msg;
           setCurrentTrackInfo({ track, totalLength });
-          setTracksTranscribed((prev) => prev + 1);
+          setTracksTranscriptionProgress((prev) => prev + 1);
           break;
         case 'translating':
           const { lyrics, elapsedTime } = msg;
@@ -57,8 +58,10 @@ const useTranscribe = () => {
           break;
         case 'translated':
           setLyrics([]);
+          console.log('Hey!');
           break;
         case 'completed':
+          setIsTranslating(false);
           off();
           break;
       }
@@ -68,18 +71,24 @@ const useTranscribe = () => {
   };
 
   useEffect(() => {
-    // TODO: Remove '!' later
-    transcribe(files, outputConfig!, transcriptionConfig!);
+    if (hasStartedTranscription.current) return;
 
-    console.log('...');
-  }, []);
+    console.log('F: Starting transcription');
+    if (!outputConfig || !transcriptionConfig) {
+      console.error('Missing transcription payload config', { outputConfig, transcriptionConfig });
+      return;
+    }
+
+    hasStartedTranscription.current = true;
+    return transcribe(files, outputConfig, transcriptionConfig);
+  }, [files, outputConfig, transcriptionConfig]);
 
   return {
     currentTrackInfo,
     elapsedTime,
     lyrics,
     tracks,
-    tracksTranscribed
+    tracksTranscriptionProgress
   };
 };
 

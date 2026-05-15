@@ -19,6 +19,7 @@ async def ws_endpoint(ws: WebSocket):
       msg_type = data.get("type")
       
       print("msg_type: " + msg_type)
+      print(f"v: {data}")
 
       handler = handlers.get(msg_type)
       if handler:
@@ -28,6 +29,11 @@ async def ws_endpoint(ws: WebSocket):
           "type": "error",
           "reason": "unknown_type"
         })
-
   except WebSocketDisconnect:
     pass
+  except Exception as e:
+    print(f"Handler error: {e}")
+    try:
+      await ws.send_json({"type": "error", "message": str(e)})
+    except Exception as send_error:
+      print(f"Could not send websocket error: {send_error}")

@@ -1,6 +1,6 @@
 .tracks-queue {
   mask-image: linear-gradient(to top, transparent, black 80%);
-  max-height: 120px;
+  height: 120px;
   font-size: .95em;
 }
 

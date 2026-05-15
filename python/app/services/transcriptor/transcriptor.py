@@ -25,7 +25,8 @@ from app.utils.fs import audio_length, copy_file, safe_copy_file
 async def audio_to_lrc(audio_file: AudioFile, 
                        output_settings: OutputSettings,
                        output_path: str,
-                       config: TranscriptionConfig, 
+                       config: TranscriptionConfig,
+                       model: WhisperModel, 
                        ws: WebSocket):
   final_output_path = Path(os.path.join(output_path, f"{audio_file.name}.lrc"))
 
@@ -38,7 +39,6 @@ async def audio_to_lrc(audio_file: AudioFile,
     "totalLength": format_time(audio_length(audio_file.path)),
   })
 
-  model = WhisperModel(config.model_path, config.device, compute_type="float32")
   segments, info = model.transcribe(
     audio_file.path,
     beam_size=config.beam_size,
