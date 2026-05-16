@@ -1,13 +1,6 @@
-import {
-  Box,
-  LinearProgress,
-  LinearProgressProps,
-  Typography
-} from '@mui/material';
+import { Box, LinearProgress, LinearProgressProps, Typography } from '@mui/material';
 
-const LinearProgressWithLabel = (
-  props: LinearProgressProps & { value: number }
-) => {
+const LinearProgressWithLabel = (props: LinearProgressProps & { value: number }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: '100%', mr: 1 }}>

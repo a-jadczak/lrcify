@@ -4,9 +4,9 @@
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 .chip {
-  padding: .2em !important;
+  padding: 0.2em !important;
 }

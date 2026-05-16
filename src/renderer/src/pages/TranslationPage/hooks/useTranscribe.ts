@@ -15,7 +15,7 @@ const useTranscribe = (setIsTranslating: React.Dispatch<React.SetStateAction<boo
   const { send } = useContext(WSContext);
 
   const { outputConfig, transcriptionConfig } = useContext(FullTranscriptionConfigContext)!;
-  const { files } = useContext(FilesContext)!;
+  const { files, clearFiles } = useContext(FilesContext)!;
 
   const [currentTrackInfo, setCurrentTrackInfo] = useState<TrackInfo>();
   const [elapsedTime, setElapsedTime] = useState<string>();
@@ -53,15 +53,14 @@ const useTranscribe = (setIsTranslating: React.Dispatch<React.SetStateAction<boo
         case 'translating':
           const { lyrics, elapsedTime } = msg;
           setElapsedTime(elapsedTime);
-          console.log('lyrics: ' + lyrics);
           setLyrics((prev) => [...(prev || []), lyrics]);
           break;
         case 'translated':
           setLyrics([]);
-          console.log('Hey!');
           break;
         case 'completed':
           setIsTranslating(false);
+          clearFiles();
           off();
           break;
       }

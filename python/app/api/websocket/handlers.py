@@ -35,11 +35,8 @@ async def ws_transcribe_audio_to_lrc(ws: WebSocket, data: dict):
   for audio_file in audio_files:
     output_path = create_folder(output_settings.path, audio_file.name) if output_settings.place_in_folder else output_settings.path 
 
-    # try:
     await audio_to_lrc(audio_file, output_settings, output_path, config, model, ws)
     await asyncio.sleep(0.25)
-    # except Exception as e:
-    #   await ws.send_json({"status": "error", "file": audio_file.name, "message": str(e)})
 
   print("completed!")
   await ws.send_json({"status": "completed"})

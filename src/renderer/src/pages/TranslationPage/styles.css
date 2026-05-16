@@ -1,29 +1,27 @@
 .tracks-queue {
   mask-image: linear-gradient(to top, transparent, black 80%);
   height: 120px;
-  font-size: .95em;
+  font-size: 0.95em;
 }
-
 
 .output-box {
   position: relative;
   height: 60vh;
   overflow: hidden;
-  padding: .5em;
-  border-radius: .5em;
+  padding: 0.5em;
+  border-radius: 0.5em;
 
   display: flex;
   flex-direction: column;
   justify-content: end;
-  
+
   mask-image: linear-gradient(to top, transparent, black 25%);
 }
 
 .output-shadow-box {
   inset: 0;
   box-shadow: inset 0px 5em 7em 1.5em rgba(0, 0, 0, 0.7);
-  position: absolute; 
-  
+  position: absolute;
 }
 
 .output-box span {
@@ -31,9 +29,11 @@
   mask-image: linear-gradient(to top, transparent, black 30%);
   mask-size: 100% 200%;
   mask-position: bottom;
-  animation: reveal-up .8s ease forwards;
+  animation: reveal-up 0.8s ease forwards;
 }
 
 @keyframes reveal-up {
-  to { mask-position: top; }
+  to {
+    mask-position: top;
+  }
 }
