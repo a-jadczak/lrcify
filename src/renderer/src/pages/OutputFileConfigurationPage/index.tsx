@@ -28,7 +28,6 @@ const OutputFileConfigurationPage = () => {
   };
 
   useEffect(() => {
-    console.log({ placeInFolders, includeSourceFiles, outputPath });
     setOutputConfig({ placeInFolders, includeSourceFiles, outputPath });
   }, [placeInFolders, includeSourceFiles, outputPath]);
 

@@ -2,6 +2,7 @@ import { Box, CircularProgress, LinearProgress, Stack, Typography } from '@mui/m
 import './styles.css';
 import { useContext, useEffect, useState } from 'react';
 import StepperContext from '@renderer/contexts/StepperContext';
+import CheckIcon from '@mui/icons-material/Check';
 import useTranscribe from './hooks/useTranscribe';
 
 const TranslationPage = () => {
@@ -87,7 +88,20 @@ const TranslationPage = () => {
         </Box>
         <Box sx={{ flex: 2 }} className="output-box">
           <Box className="output-shadow-box"></Box>
-          <CircularProgress sx={{ position: 'absolute', bottom: 0, right: 0, margin: '1em' }} />
+          {isTranslating ? (
+            <CircularProgress sx={{ position: 'absolute', bottom: 0, right: 0, margin: '1em' }} />
+          ) : (
+            <CheckIcon
+              sx={{
+                fontSize: '2.25em',
+                color: 'primary.main',
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+                margin: '.5em'
+              }}
+            />
+          )}
           {lyrics?.map((text) => (
             <Typography component="span" key={text}>
               {text}
