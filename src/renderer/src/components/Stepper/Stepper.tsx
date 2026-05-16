@@ -13,7 +13,7 @@ interface StepperProps {
 const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
   const [nextStepAvailable, setNextStepAvailable] = useState<boolean>(false);
-  const [previousStepAvailable, setPreviousStepAvailable] = useState<boolean>(false);
+  const [previousStepAvailable, setPreviousStepAvailable] = useState<boolean>(true);
 
   return (
     <Box className="stepper-container">

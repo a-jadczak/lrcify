@@ -40,7 +40,6 @@ const ModelSelectionPage = (): React.JSX.Element => {
 
   useEffect(() => {
     if (modelConfig && selectedModel) {
-      console.log({ ...modelConfig, model: selectedModel.name });
       setTranscriptionConfig({ ...modelConfig, model: selectedModel.name });
     }
   }, [modelConfig, selectedModel, setTranscriptionConfig]);
