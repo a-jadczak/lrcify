@@ -30,8 +30,7 @@ const Dropzone = (): React.JSX.Element => {
       name: splitFileExtension(file.name),
       size: file.size,
       type: getFileExtension(file.name),
-      // For safety purposes, getting a file path is not allowed so we have to create an custom URL to be able to read file
-      path: URL.createObjectURL(file)
+      path: window.api.getPathForFile(file)
     }));
   };
 

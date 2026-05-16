@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, webUtils } from 'electron';
 import AudioFile from '../../types/AudioFile';
 
 interface OpenDialogPathResult {
@@ -15,3 +15,4 @@ export const pickFiles = (): Promise<OpenDialogResult> =>
   ipcRenderer.invoke('fileDialog:pickFiles');
 export const pickDirectory = (): Promise<OpenDialogPathResult> =>
   ipcRenderer.invoke('fileDialog:pickDirectory');
+export const getPathForFile = (file: File): string => webUtils.getPathForFile(file);
