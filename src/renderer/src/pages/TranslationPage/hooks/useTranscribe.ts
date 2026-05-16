@@ -8,7 +8,7 @@ import TranscriptionConfig from 'src/types/TranscriptionConfig';
 
 interface TrackInfo {
   track: string;
-  totalLength: number;
+  totalLength: string;
 }
 
 const useTranscribe = (setIsTranslating: React.Dispatch<React.SetStateAction<boolean>>) => {
@@ -17,8 +17,8 @@ const useTranscribe = (setIsTranslating: React.Dispatch<React.SetStateAction<boo
   const { outputConfig, transcriptionConfig } = useContext(FullTranscriptionConfigContext)!;
   const { files, clearFiles } = useContext(FilesContext)!;
 
-  const [currentTrackInfo, setCurrentTrackInfo] = useState<TrackInfo>();
-  const [elapsedTime, setElapsedTime] = useState<string>();
+  const currentTrackInfo = useRef<TrackInfo>({ track: '', totalLength: '00:00' });
+  const [elapsedTime, setElapsedTime] = useState<string>('00:00');
   const [lyrics, setLyrics] = useState<string[]>();
 
   const [tracks, setTracks] = useState<string[]>([]);
@@ -47,16 +47,22 @@ const useTranscribe = (setIsTranslating: React.Dispatch<React.SetStateAction<boo
       switch (msg.status) {
         case 'starting-translating':
           const { track, totalLength } = msg;
-          setCurrentTrackInfo({ track, totalLength });
+          currentTrackInfo.current = { track, totalLength };
+
           setTracksTranscriptionProgress((prev) => prev + 1);
+          setElapsedTime('00:00');
           break;
         case 'translating':
           const { lyrics, elapsedTime } = msg;
           setElapsedTime(elapsedTime);
           setLyrics((prev) => [...(prev || []), lyrics]);
+          console.log(`cti: ${currentTrackInfo}`);
           break;
         case 'translated':
           setLyrics([]);
+          if (currentTrackInfo.current?.totalLength)
+            setElapsedTime(currentTrackInfo.current.totalLength);
+          console.log(`ELAPSED TIME: ${currentTrackInfo.current?.totalLength}`);
           break;
         case 'completed':
           setIsTranslating(false);

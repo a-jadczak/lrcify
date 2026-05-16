@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 
 interface TrackInfo {
   track: string;
-  totalLength: number;
+  totalLength: string;
 }
 
 interface TranslationProgressPanelProps {

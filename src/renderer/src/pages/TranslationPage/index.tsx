@@ -20,7 +20,7 @@ const TranslationPage = (): ReactElement => {
   return (
     <Box sx={{ display: 'flex' }}>
       <TranslationProgressPanel
-        currentTrackInfo={currentTrackInfo}
+        currentTrackInfo={currentTrackInfo.current}
         elapsedTime={elapsedTime}
         tracks={tracks}
         tracksTranscriptionProgress={tracksTranscriptionProgress}
