@@ -5,6 +5,8 @@ out
 .eslintcache
 *.log*
 
+resources
+
 # Python
 venv/
 __pycache__/
