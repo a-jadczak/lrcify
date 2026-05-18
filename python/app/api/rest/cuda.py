@@ -1,9 +1,13 @@
 from fastapi import APIRouter
-import torch
+import ctranslate2
 
 router = APIRouter(prefix="/cuda")
 
 @router.get("/")
 def is_cuda_available():
-  available = torch.cuda.is_available() 
-  return available
+  try:
+    available = ctranslate2.get_cuda_device_count() > 0
+    return available
+  except Exception:
+    return False
+

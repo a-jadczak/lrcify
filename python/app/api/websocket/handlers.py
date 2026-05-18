@@ -7,6 +7,8 @@ from app.utils.fs import create_folder
 from app.helpers.path_helpers import get_model_dir
 from app.helpers.whisper_model_cache import get_whisper_model
 from app.schemas.transcription.command import TranscribeAudioCommand
+import gc
+from faster_whisper import WhisperModel
 
 async def ws_download(ws: WebSocket, data: dict):
   model_name = data["model_name"]

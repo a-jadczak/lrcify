@@ -90,7 +90,7 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # Install required Python packages
-pip install -r requirements.txt
+pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu126
 
 # Start the FastAPI server
 uvicorn app.main:app
