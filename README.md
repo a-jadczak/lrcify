@@ -5,12 +5,17 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/status-work--in--progress-orange?style=for-the-badge" alt="Work in Progress">
   <img src="https://img.shields.io/badge/AI-Whisper--powered-blueviolet?style=for-the-badge" alt="AI Powered">
   <img src="https://img.shields.io/badge/Platform-Desktop-blue?style=for-the-badge" alt="Platform Desktop">
   <img src="https://img.shields.io/badge/Privacy-Local--First-success?style=for-the-badge" alt="Local First">
 </p>
 
 ---
+
+## 📺 Demo
+
+[![Lrcify Demo](https://img.youtube.com/vi/bDzS0qOxQNM/0.jpg)](https://www.youtube.com/watch?v=bDzS0qOxQNM)
 
 ## 🚀 Project Overview
 
@@ -90,8 +95,7 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # Install required Python packages
-pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu126
-
+pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu126
 # Start the FastAPI server
 uvicorn app.main:app
 ```
