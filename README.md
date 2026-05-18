@@ -15,7 +15,7 @@
 
 ## 📺 Demo
 
-[![Lrcify Demo](https://img.youtube.com/vi/bDzS0qOxQNM/0.jpg)](https://www.youtube.com/watch?v=bDzS0qOxQNM)
+# https://www.youtube.com/watch?v=bDzS0qOxQNM
 
 ## 🚀 Project Overview
 
