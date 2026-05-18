@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.rest import models, cuda, transcription
 from app.api.websocket import ws_routes
 
-
 app = FastAPI()
 
 app.add_middleware(
