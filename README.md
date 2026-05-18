@@ -17,11 +17,22 @@
 
 # https://www.youtube.com/watch?v=bDzS0qOxQNM
 
+---
+
 ## 🚀 Project Overview
 
 **Lrcify** is a powerful step-by-step desktop application designed to automatically detect, transcribe, and extract lyrics from audio files using cutting-edge AI models, outputting them into `.lrc` format files.
 
 Built with a **local-first architecture**, Lrcify allows users to easily browse and download various AI models directly within the app. Once a model is downloaded, all audio processing and AI inference are executed **entirely offline** on your local machine. Your data never leaves your computer.
+
+---
+
+## ⚠️ Project Status & AI Accuracy Notice
+
+**Lrcify is currently under active development (Work in Progress).** Please note that the AI models utilized for transcription and synchronization are still being optimized. As a result:
+
+- **Transcription accuracy** may vary depending on the audio quality, background noise, or instrumentals.
+- **Timestamp synchronization** in the generated `.lrc` files might not be 100% perfect in this early version.
 
 ---
 
