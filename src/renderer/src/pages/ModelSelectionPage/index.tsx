@@ -32,11 +32,11 @@ const ModelSelectionPage = (): React.JSX.Element => {
 
   useEffect(() => {
     setNextStepAvailable(selectedModel != null && !isInstalling && isModelInstalled === 'yes');
-  }, [selectedModel, isInstalling, isModelInstalled]);
+  }, [selectedModel, isInstalling, isModelInstalled, setNextStepAvailable]);
 
   useEffect(() => {
     setPreviousStepAvailable(!isInstalling);
-  }, [isInstalling]);
+  }, [isInstalling, setPreviousStepAvailable]);
 
   useEffect(() => {
     if (modelConfig && selectedModel) {

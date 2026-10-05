@@ -9,7 +9,7 @@ import FileItem from './components/FileItem';
 import OutputOptions from './components/OutputOptions';
 import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
 
-const OutputFileConfigurationPage = () => {
+const OutputFileConfigurationPage = (): React.JSX.Element => {
   const { files } = useContext(FilesContext)!;
   const { setNextStepAvailable } = useContext(StepperContext)!;
   const { setOutputConfig } = useContext(FullTranscriptionConfigContext)!;
@@ -18,7 +18,7 @@ const OutputFileConfigurationPage = () => {
   const [includeSourceFiles, setIncludeSourceFiles] = useState(true);
   const [outputPath, setOutputPath] = useState('');
 
-  const setSelectedPath = async () => {
+  const setSelectedPath = async (): Promise<void> => {
     const dir = await window.api.pickDirectory();
 
     if (dir.canceled) return;
@@ -29,7 +29,7 @@ const OutputFileConfigurationPage = () => {
 
   useEffect(() => {
     setOutputConfig({ placeInFolders, includeSourceFiles, outputPath });
-  }, [placeInFolders, includeSourceFiles, outputPath]);
+  }, [placeInFolders, includeSourceFiles, outputPath, setOutputConfig]);
 
   useEffect(() => {
     setNextStepAvailable(!isEmpty(outputPath));

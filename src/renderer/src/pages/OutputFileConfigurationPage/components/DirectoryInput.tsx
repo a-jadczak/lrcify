@@ -9,7 +9,7 @@ interface DirectoryInputProps {
 const DirectoryInput: React.FC<DirectoryInputProps> = ({
   outputPath,
   onSelect
-}): React.JSX.Element => (
+}: DirectoryInputProps): React.JSX.Element => (
   <Box className="input-group">
     <Box
       className="icon"

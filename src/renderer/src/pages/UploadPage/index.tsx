@@ -12,7 +12,7 @@ const UploadPage = (): React.JSX.Element => {
 
   useEffect(() => {
     setNextStepAvailable(files.length >= 1);
-  }, [files]);
+  }, [files, setNextStepAvailable]);
 
   return (
     <>
