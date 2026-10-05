@@ -2,6 +2,7 @@ requests
 huggingface-hub
 torch==2.9.1+cu126
 faster-whisper
+av<19
 pyinstaller
 fastapi 
 uvicorn
