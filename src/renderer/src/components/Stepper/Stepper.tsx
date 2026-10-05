@@ -10,7 +10,7 @@ interface StepperProps {
 /*
  * This Stepper component was created to recive conditions determined by page components which controls the buttons props here.
  */
-const Stepper: React.FC<StepperProps> = ({ steps }): JSX.Element => {
+const Stepper = ({ steps }: StepperProps): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
   const [nextStepAvailable, setNextStepAvailable] = useState<boolean>(false);
   const [previousStepAvailable, setPreviousStepAvailable] = useState<boolean>(true);

@@ -1,6 +1,8 @@
 import { Box, LinearProgress, LinearProgressProps, Typography } from '@mui/material';
 
-const LinearProgressWithLabel = (props: LinearProgressProps & { value: number }) => {
+const LinearProgressWithLabel = (
+  props: LinearProgressProps & { value: number }
+): React.JSX.Element => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: '100%', mr: 1 }}>
