@@ -1,8 +1,8 @@
-import OutputFileConfigurationPage from '../pages/OutputFileConfigurationPage';
-import ModelSelectorInstaller from '../pages/ModelSelectionPage';
-import TranslationPage from '../pages/TranslationPage';
-import CompletionPage from '@renderer/pages/CompletionPage';
-import UploadPage from '@renderer/pages/UploadPage';
+import OutputFileConfigurationPage from '../pages/OutputFileConfigurationPage/OutputFileConfigurationPage';
+import ModelSelectionPage from '../pages/ModelSelectionPage/ModelSelectionPage';
+import TranslationPage from '../pages/TranslationPage/TranslationPage';
+import CompletionPage from '@renderer/pages/CompletionPage/CompletionPage';
+import UploadPage from '@renderer/pages/UploadPage/UploadPage';
 import Step from 'src/types/Step';
 
 export const steps: Step[] = [
@@ -18,7 +18,7 @@ export const steps: Step[] = [
   },
   {
     name: 'Model',
-    component: <ModelSelectorInstaller />,
+    component: <ModelSelectionPage />,
     backButton: true
   },
   {
