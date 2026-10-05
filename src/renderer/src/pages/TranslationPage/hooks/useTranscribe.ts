@@ -2,91 +2,94 @@ import { FilesContext } from '@renderer/contexts/FilesContext';
 import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
 import { WSContext } from '@renderer/contexts/WebSocketProvider';
 import { useContext, useEffect, useRef, useState } from 'react';
-import AudioFile from 'src/types/AudioFile';
-import OutputConfig from 'src/types/OutputConfig';
-import TranscriptionConfig from 'src/types/TranscriptionConfig';
+import type { Dispatch, RefObject, SetStateAction } from 'react';
 
 interface TrackInfo {
   track: string;
   totalLength: string;
 }
 
-const useTranscribe = (setIsTranslating: React.Dispatch<React.SetStateAction<boolean>>) => {
-  const { send } = useContext(WSContext);
+type TranscriptionMessage =
+  | { status: 'starting-translating'; track: string; totalLength: string }
+  | { status: 'translating'; lyrics: string; elapsedTime: string }
+  | { status: 'translated' }
+  | { status: 'completed' };
 
+interface UseTranscribeResult {
+  currentTrackInfo: RefObject<TrackInfo>;
+  elapsedTime: string;
+  lyrics: string[];
+  tracks: string[];
+  tracksTranscriptionProgress: number;
+}
+
+const useTranscribe = (
+  setIsTranslating: Dispatch<SetStateAction<boolean>>
+): UseTranscribeResult => {
+  const { send } = useContext(WSContext);
   const { outputConfig, transcriptionConfig } = useContext(FullTranscriptionConfigContext)!;
   const { files, clearFiles } = useContext(FilesContext)!;
 
   const currentTrackInfo = useRef<TrackInfo>({ track: '', totalLength: '00:00' });
-  const [elapsedTime, setElapsedTime] = useState<string>('00:00');
-  const [lyrics, setLyrics] = useState<string[]>();
-
+  const [elapsedTime, setElapsedTime] = useState('00:00');
+  const [lyrics, setLyrics] = useState<string[]>([]);
   const [tracks, setTracks] = useState<string[]>([]);
-  const [tracksTranscriptionProgress, setTracksTranscriptionProgress] = useState<number>(0);
-  const hasStartedTranscription = useRef(false);
+  const [tracksTranscriptionProgress, setTracksTranscriptionProgress] = useState(0);
+  const hasStarted = useRef(false);
+  const hasCompleted = useRef(false);
 
-  const transcribe = (
-    files: AudioFile[],
-    outputConfig: OutputConfig,
-    transcriptionConfig: TranscriptionConfig
-  ) => {
-    send({
-      type: 'transcribe',
-      files: files,
-      outputConfig: outputConfig,
-      transcriptionConfig: transcriptionConfig
-    });
+  useEffect(() => {
+    if (hasCompleted.current) return;
 
-    const tracks = files.map((file) => `${file.name}.${file.type}`);
-    console.log(tracks);
-    setTracks(tracks);
+    const unsubscribe = window.ws.onMessage((data: string) => {
+      const message = JSON.parse(data) as TranscriptionMessage;
 
-    const off = window.ws.onMessage((data: string) => {
-      const msg = JSON.parse(data);
-
-      switch (msg.status) {
+      switch (message.status) {
         case 'starting-translating':
-          const { track, totalLength } = msg;
-          currentTrackInfo.current = { track, totalLength };
-
-          setTracksTranscriptionProgress((prev) => prev + 1);
+          currentTrackInfo.current = {
+            track: message.track,
+            totalLength: message.totalLength
+          };
+          setTracksTranscriptionProgress((progress) => progress + 1);
           setElapsedTime('00:00');
           break;
         case 'translating':
-          const { lyrics, elapsedTime } = msg;
-          setElapsedTime(elapsedTime);
-          setLyrics((prev) => [...(prev || []), lyrics]);
-          console.log(`cti: ${currentTrackInfo}`);
+          setElapsedTime(message.elapsedTime);
+          setLyrics((current) => [...current, message.lyrics]);
           break;
         case 'translated':
           setLyrics([]);
-          if (currentTrackInfo.current?.totalLength)
-            setElapsedTime(currentTrackInfo.current.totalLength);
-          console.log(`ELAPSED TIME: ${currentTrackInfo.current?.totalLength}`);
+          setElapsedTime(currentTrackInfo.current.totalLength);
           break;
         case 'completed':
+          hasCompleted.current = true;
           setIsTranslating(false);
           clearFiles();
-          off();
           break;
       }
     });
 
-    return off;
-  };
+    return () => {
+      unsubscribe();
+    };
+  }, [clearFiles, setIsTranslating]);
 
   useEffect(() => {
-    if (hasStartedTranscription.current) return;
-
-    console.log('F: Starting transcription');
+    if (hasStarted.current || hasCompleted.current) return;
     if (!outputConfig || !transcriptionConfig) {
       console.error('Missing transcription payload config', { outputConfig, transcriptionConfig });
       return;
     }
 
-    hasStartedTranscription.current = true;
-    return transcribe(files, outputConfig, transcriptionConfig);
-  }, [files, outputConfig, transcriptionConfig]);
+    hasStarted.current = true;
+    setTracks(files.map((file) => `${file.name}.${file.type}`));
+    send({
+      type: 'transcribe',
+      files,
+      outputConfig,
+      transcriptionConfig
+    });
+  }, [files, outputConfig, transcriptionConfig, send]);
 
   return {
     currentTrackInfo,
