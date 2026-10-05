@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
-import LinearProgressWithLabel from '@renderer/components/LinearProgressWithLabel/LinearProgressWithLabel';
+import LinearProgressWithLabel from '@renderer/components/LinearProgressWithLabel';
 import { useEffect } from 'react';
+import type DownloadProgress from '@renderer/types/DownloadProgress';
 
 interface ModelInstallerProps {
   downloadProgress: DownloadProgress;

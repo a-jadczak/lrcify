@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import IconLabel from '@renderer/components/IconLabel/IconLabel';
+import IconLabel from '@renderer/components/IconLabel';
 import DescriptionIcon from '@mui/icons-material/Description';
 import FolderIcon from '@mui/icons-material/Folder';
 import AudioFileIcon from '@mui/icons-material/AudioFile';

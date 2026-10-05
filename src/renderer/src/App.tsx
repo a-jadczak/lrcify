@@ -1,4 +1,4 @@
-import Stepper from './components/Stepper/Stepper';
+import Stepper from './components/Stepper';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { FilesProvider } from './contexts/FilesProvider';

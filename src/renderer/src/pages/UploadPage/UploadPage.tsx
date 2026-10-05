@@ -1,5 +1,5 @@
 import { Box, Chip } from '@mui/material';
-import Dropzone from '@renderer/components/Dropzone/Dropzone';
+import Dropzone from '@renderer/components/Dropzone';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import { useContext, useEffect } from 'react';
 import { FilesContext } from '@renderer/contexts/FilesContext';
