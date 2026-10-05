@@ -5,8 +5,17 @@ import DownloadProgress from 'src/renderer/src/types/DownloadProgress';
 
 type ModelInstalled = 'yes' | 'no' | 'awaiting';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const useModelData = () => {
+interface UseModelDataResult {
+  modelsData: ModelData[] | undefined;
+  selectedModel: ModelData | null | undefined;
+  isInstalling: boolean;
+  isModelInstalled: ModelInstalled | undefined;
+  downloadProgress: DownloadProgress;
+  setModel: (modelName: string) => void;
+  installModel: () => void;
+}
+
+const useModelData = (): UseModelDataResult => {
   const [modelsData, setModelsData] = useState<ModelData[]>();
   const [selectedModel, setSelectedModel] = useState<ModelData | null>();
 
