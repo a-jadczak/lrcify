@@ -1,6 +1,6 @@
 import { FilesContext } from '@renderer/contexts/FilesContext';
 import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
-import { WSContext } from '@renderer/contexts/WebSocketProvider';
+import { sendWebSocketMessage } from '@renderer/utils/webSocket';
 import { useContext, useEffect, useRef, useState } from 'react';
 import type { Dispatch, RefObject, SetStateAction } from 'react';
 
@@ -26,7 +26,6 @@ interface UseTranscribeResult {
 const useTranscribe = (
   setIsTranslating: Dispatch<SetStateAction<boolean>>
 ): UseTranscribeResult => {
-  const { send } = useContext(WSContext);
   const { outputConfig, transcriptionConfig } = useContext(FullTranscriptionConfigContext)!;
   const { files, clearFiles } = useContext(FilesContext)!;
 
@@ -83,13 +82,13 @@ const useTranscribe = (
 
     hasStarted.current = true;
     setTracks(files.map((file) => `${file.name}.${file.type}`));
-    send({
+    sendWebSocketMessage({
       type: 'transcribe',
       files,
       outputConfig,
       transcriptionConfig
     });
-  }, [files, outputConfig, transcriptionConfig, send]);
+  }, [files, outputConfig, transcriptionConfig]);
 
   return {
     currentTrackInfo,

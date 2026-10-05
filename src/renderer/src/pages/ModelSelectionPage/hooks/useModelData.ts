@@ -1,12 +1,12 @@
-import { WSContext } from '@renderer/contexts/WebSocketProvider';
+import { sendWebSocketMessage } from '@renderer/utils/webSocket';
 import ModelData from '@renderer/types/ModelData';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import DownloadProgress from 'src/renderer/src/types/DownloadProgress';
 
 type ModelInstalled = 'yes' | 'no' | 'awaiting';
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useModelData = () => {
-  const { send } = useContext(WSContext);
-
   const [modelsData, setModelsData] = useState<ModelData[]>();
   const [selectedModel, setSelectedModel] = useState<ModelData | null>();
 
@@ -27,7 +27,7 @@ const useModelData = () => {
       .catch((err) => console.error('Error:', err));
   }, []);
 
-  const setModel = (modelName: string) => {
+  const setModel = (modelName: string): void => {
     setSelectedModel(modelsData?.find((model) => model.name === modelName));
 
     setIsModelInstalled('awaiting');
@@ -58,18 +58,18 @@ const useModelData = () => {
     return off;
   }, []);
 
-  const installModel = () => {
+  const installModel = (): void => {
     if (!selectedModel) return;
 
     setIsInstalling(true);
 
-    send({
+    sendWebSocketMessage({
       type: 'download',
       model_name: selectedModel.name
     });
   };
 
-  const onInstalled = () => {
+  const onInstalled = (): void => {
     setIsInstalling(false);
     setIsModelInstalled('yes');
     setDownloadProgress({ downloaded: 0, percent: 0 });
