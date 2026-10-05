@@ -1,6 +1,5 @@
 import { Stepper as StepperMUI, Step as StepMUI, StepLabel, Button, Box } from '@mui/material';
 import { JSX, useState } from 'react';
-import './Stepper.css';
 import Step from 'src/types/Step';
 import StepperContext from '@renderer/contexts/StepperContext';
 
@@ -16,8 +15,10 @@ const Stepper = ({ steps }: StepperProps): JSX.Element => {
   const [previousStepAvailable, setPreviousStepAvailable] = useState<boolean>(true);
 
   return (
-    <Box className="stepper-container">
-      <StepperMUI className="stepper-steps" activeStep={activeStep}>
+    <Box
+      sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+    >
+      <StepperMUI sx={{ padding: '1.5em' }} activeStep={activeStep}>
         {steps.map(({ name }) => (
           <StepMUI key={name}>
             <StepLabel>{name}</StepLabel>
@@ -28,10 +29,10 @@ const Stepper = ({ steps }: StepperProps): JSX.Element => {
       <StepperContext.Provider
         value={{ setActiveStep, setNextStepAvailable, setPreviousStepAvailable }}
       >
-        <Box className="stepper-children">{steps[activeStep].component}</Box>
+        <Box sx={{ flex: 1, padding: '1em 2.5em' }}>{steps[activeStep].component}</Box>
       </StepperContext.Provider>
 
-      <Box className="stepper-buttons">
+      <Box sx={{ display: 'flex', justifyContent: 'space-around', padding: '0.5em' }}>
         {steps[activeStep].backButton && (
           <Button
             disabled={!previousStepAvailable || activeStep === 0}
