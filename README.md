@@ -6,7 +6,6 @@
 
 **An AI-powered desktop application for offline audio transcription and synchronized LRC lyric generation**
 
-[![Demo](https://img.shields.io/badge/Demo-Watch-7c3aed)](.github/assets/lrcify_video.mp4)
 ![Status](https://img.shields.io/badge/Status-Work_in_Progress-orange)
 ![AI](https://img.shields.io/badge/AI-Faster--Whisper-blueviolet)
 ![Privacy](https://img.shields.io/badge/Privacy-Local--First-success)
@@ -88,7 +87,7 @@ Track model downloads and preview timestamped transcription results as they arri
 
 Watch the application workflow:
 
-### [▶ Watch Demo](.github/assets/lrcify_video.mp4)
+https://github.com/user-attachments/assets/c2f2a23c-84ed-456c-ae02-e6125122c74b
 
 > This is a video demonstration. To run the application locally, follow the setup instructions in the [Getting started section](#-getting-started).
 
