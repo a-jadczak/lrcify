@@ -1,0 +1,18 @@
+type:
+  - Desktop App
+status: In Progress
+
+technologies:
+  - Electron
+  - React
+  - Python
+  - FastAPI
+  - TypeScript
+  - Whisper AI
+
+banner: .github/assets/lrcify_gif.gif
+
+video: .github/assets/lrcify_video.mp4
+# gallery:
+#   - .github/assets/screenshot-desktop-01.png
+#   - .github/assets/screenshot-mobile-01.png
