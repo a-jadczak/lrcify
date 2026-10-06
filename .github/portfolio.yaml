@@ -8,7 +8,7 @@ technologies:
   - Python
   - FastAPI
   - TypeScript
-  - Whisper AI
+  - Faster Whisper AI
   - Materiaul UI
 
 banner: .github/assets/lrcify_gif.gif
