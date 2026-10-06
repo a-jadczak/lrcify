@@ -5,7 +5,7 @@ import {
   BACKEND_WS_URL,
   INITIAL_RECONNECT_DELAY_MS,
   MAX_RECONNECT_DELAY_MS
-} from '@/main/ipc/config/backend';
+} from '@/main/ipc/config/websocket';
 
 export const registerBackendSocketHandlers = (): (() => void) => {
   let socket: WebSocket | null = null;
