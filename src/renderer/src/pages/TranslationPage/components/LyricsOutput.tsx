@@ -1,18 +1,21 @@
 import CheckIcon from '@mui/icons-material/Check';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Alert, Box, CircularProgress, Typography } from '@mui/material';
 import type { ReactElement } from 'react';
 
 interface LyricsOutputProps {
   isTranslating: boolean;
   lyrics?: string[];
+  sendError: string | null;
 }
 
-const LyricsOutput = ({ isTranslating, lyrics }: LyricsOutputProps): ReactElement => {
+const LyricsOutput = ({ isTranslating, lyrics, sendError }: LyricsOutputProps): ReactElement => {
   return (
     <Box sx={{ flex: 2 }} className="output-box">
       <Box className="output-shadow-box" />
 
-      {isTranslating ? (
+      {sendError ? (
+        <Alert severity="error">{sendError}</Alert>
+      ) : isTranslating ? (
         <CircularProgress sx={{ position: 'absolute', bottom: 0, right: 0, margin: '1em' }} />
       ) : (
         <CheckIcon

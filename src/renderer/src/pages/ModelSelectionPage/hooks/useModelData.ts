@@ -9,6 +9,7 @@ interface UseModelDataResult {
   modelsData: ModelData[] | undefined;
   selectedModel: ModelData | null | undefined;
   isInstalling: boolean;
+  installError: string | null;
   isModelInstalled: ModelInstalled | undefined;
   downloadProgress: DownloadProgress;
   setModel: (modelName: string) => void;
@@ -20,6 +21,7 @@ const useModelData = (): UseModelDataResult => {
   const [selectedModel, setSelectedModel] = useState<ModelData | null>();
 
   const [isInstalling, setIsInstalling] = useState<boolean>(false);
+  const [installError, setInstallError] = useState<string | null>(null);
   const [isModelInstalled, setIsModelInstalled] = useState<ModelInstalled>();
 
   const [downloadProgress, setDownloadProgress] = useState<DownloadProgress>({
@@ -71,10 +73,15 @@ const useModelData = (): UseModelDataResult => {
     if (!selectedModel) return;
 
     setIsInstalling(true);
+    setInstallError(null);
 
-    sendWebSocketMessage({
+    void sendWebSocketMessage({
       type: 'download',
       model_name: selectedModel.name
+    }).catch((error: unknown) => {
+      console.error('Could not start model download:', error);
+      setInstallError('Could not connect to the backend. Start it and try again.');
+      setIsInstalling(false);
     });
   };
 
@@ -88,6 +95,7 @@ const useModelData = (): UseModelDataResult => {
     modelsData,
     isModelInstalled,
     isInstalling,
+    installError,
     downloadProgress,
     setModel,
     selectedModel,

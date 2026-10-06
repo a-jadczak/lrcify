@@ -20,6 +20,7 @@ const ModelSelectionPage = (): React.JSX.Element => {
     installModel,
     downloadProgress,
     isInstalling,
+    installError,
     isModelInstalled,
     setModel
   } = useModelData();
@@ -63,6 +64,7 @@ const ModelSelectionPage = (): React.JSX.Element => {
           <ModelInstaller
             weight={`${selectedModel.weight} ${selectedModel.unit}`}
             isInstalling={isInstalling}
+            installError={installError}
             installModel={installModel}
             downloadProgress={downloadProgress!}
           />

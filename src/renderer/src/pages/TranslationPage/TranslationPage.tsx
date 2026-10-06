@@ -10,12 +10,12 @@ import LyricsOutput from './components/LyricsOutput';
 const TranslationPage = (): ReactElement => {
   const { setNextStepAvailable } = useContext(StepperContext)!;
   const [isTranslating, setIsTranslating] = useState(true);
-  const { currentTrackInfo, elapsedTime, lyrics, tracks, tracksTranscriptionProgress } =
+  const { currentTrackInfo, elapsedTime, lyrics, tracks, tracksTranscriptionProgress, sendError } =
     useTranscribe(setIsTranslating);
 
   useEffect(() => {
-    setNextStepAvailable(!isTranslating);
-  }, [isTranslating, setNextStepAvailable]);
+    setNextStepAvailable(!isTranslating && !sendError);
+  }, [isTranslating, sendError, setNextStepAvailable]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -25,7 +25,7 @@ const TranslationPage = (): ReactElement => {
         tracks={tracks}
         tracksTranscriptionProgress={tracksTranscriptionProgress}
       />
-      <LyricsOutput isTranslating={isTranslating} lyrics={lyrics} />
+      <LyricsOutput isTranslating={isTranslating} lyrics={lyrics} sendError={sendError} />
     </Box>
   );
 };

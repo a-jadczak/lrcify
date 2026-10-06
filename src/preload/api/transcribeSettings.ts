@@ -1,9 +1,9 @@
 import { ipcRenderer } from 'electron';
-import Language from '../../types/Language';
-import TranscriptionConfig from '../../types/TranscriptionConfig';
+import type Language from '../../types/Language';
+import { IPC_CHANNELS } from '../../ipc/ipc';
 
-export const getLanguages = (): Promise<Language[]> => ipcRenderer.invoke('get-languages');
-export const getTranscribeSettings = (): Promise<TranscriptionConfig> =>
-  ipcRenderer.invoke('get-transcribe-settings');
+export const getLanguages = (): Promise<Language[]> =>
+  ipcRenderer.invoke(IPC_CHANNELS.getLanguages);
+
 export const getIsCudaAvailable = (): Promise<boolean> =>
-  ipcRenderer.invoke('get-is-cuda-available');
+  ipcRenderer.invoke(IPC_CHANNELS.getIsCudaAvailable);

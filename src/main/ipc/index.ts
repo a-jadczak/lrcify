@@ -1,12 +1,11 @@
-import { registerFileDialogHandlers } from './dialog/fileDialog';
-import { registerAPIHandlers } from './api/endpoints/transcribeSettings';
-import { registerModelAPIHandlers } from './api/endpoints/modelSettings';
-import { registerDownloadWS } from './ws/download';
-import { BrowserWindow } from 'electron';
+import { registerFileDialogHandlers } from './api/os/fileDialog';
+import { registerAPIHandlers } from './api/http/transcribeSettings';
+import { registerModelAPIHandlers } from './api/http/modelSettings';
+import { registerBackendSocketHandlers } from './api/ws/backend';
 
-export const registerIPCHandlers = (mainWindow: BrowserWindow, ws: WebSocket) => {
+export const registerIPCHandlers = (): (() => void) => {
   registerFileDialogHandlers();
   registerAPIHandlers();
   registerModelAPIHandlers();
-  registerDownloadWS(mainWindow, ws);
+  return registerBackendSocketHandlers();
 };

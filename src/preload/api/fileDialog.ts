@@ -1,18 +1,10 @@
 import { ipcRenderer, webUtils } from 'electron';
-import AudioFile from '../../types/AudioFile';
+import { IPC_CHANNELS } from '../../ipc/ipc';
+import type { PickDirectoryResult, PickFilesResult } from '../../types/ipc';
 
-interface OpenDialogPathResult {
-  canceled: boolean;
-  filePaths: string[];
-}
+export const pickFiles = (): Promise<PickFilesResult> => ipcRenderer.invoke(IPC_CHANNELS.pickFiles);
 
-interface OpenDialogResult {
-  canceled: boolean;
-  files: AudioFile[];
-}
+export const pickDirectory = (): Promise<PickDirectoryResult> =>
+  ipcRenderer.invoke(IPC_CHANNELS.pickDirectory);
 
-export const pickFiles = (): Promise<OpenDialogResult> =>
-  ipcRenderer.invoke('fileDialog:pickFiles');
-export const pickDirectory = (): Promise<OpenDialogPathResult> =>
-  ipcRenderer.invoke('fileDialog:pickDirectory');
 export const getPathForFile = (file: File): string => webUtils.getPathForFile(file);

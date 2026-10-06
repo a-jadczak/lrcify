@@ -21,6 +21,7 @@ interface UseTranscribeResult {
   lyrics: string[];
   tracks: string[];
   tracksTranscriptionProgress: number;
+  sendError: string | null;
 }
 
 const useTranscribe = (
@@ -34,6 +35,7 @@ const useTranscribe = (
   const [lyrics, setLyrics] = useState<string[]>([]);
   const [tracks, setTracks] = useState<string[]>([]);
   const [tracksTranscriptionProgress, setTracksTranscriptionProgress] = useState(0);
+  const [sendError, setSendError] = useState<string | null>(null);
   const hasStarted = useRef(false);
   const hasCompleted = useRef(false);
 
@@ -82,20 +84,25 @@ const useTranscribe = (
 
     hasStarted.current = true;
     setTracks(files.map((file) => `${file.name}.${file.type}`));
-    sendWebSocketMessage({
+    void sendWebSocketMessage({
       type: 'transcribe',
       files,
       outputConfig,
       transcriptionConfig
+    }).catch((error: unknown) => {
+      console.error('Could not start transcription:', error);
+      setSendError('Could not connect to the backend. Start it and return to this step.');
+      setIsTranslating(false);
     });
-  }, [files, outputConfig, transcriptionConfig]);
+  }, [files, outputConfig, transcriptionConfig, setIsTranslating]);
 
   return {
     currentTrackInfo,
     elapsedTime,
     lyrics,
     tracks,
-    tracksTranscriptionProgress
+    tracksTranscriptionProgress,
+    sendError
   };
 };
 

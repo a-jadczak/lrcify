@@ -1,0 +1,7 @@
+const BACKEND_HOST = '127.0.0.1';
+const BACKEND_PORT = 8000;
+
+export const BACKEND_HTTP_URL = `http://${BACKEND_HOST}:${BACKEND_PORT}`;
+export const BACKEND_WS_URL = `ws://${BACKEND_HOST}:${BACKEND_PORT}/ws`;
+export const INITIAL_RECONNECT_DELAY_MS = 1000;
+export const MAX_RECONNECT_DELAY_MS = 10000;

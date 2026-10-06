@@ -1,7 +1,5 @@
-export const sendWebSocketMessage = (message: unknown): void => {
-  try {
-    window.ws.send(JSON.stringify(message));
-  } catch (error) {
-    console.error('Something went wrong', error);
-  }
+import type { WebSocketCommand } from 'src/types/ipc';
+
+export const sendWebSocketMessage = async (command: WebSocketCommand): Promise<void> => {
+  await window.ws.send(command);
 };
