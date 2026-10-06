@@ -1,7 +1,7 @@
-import type AudioFile from './AudioFile';
-import type Language from './Language';
-import type OutputConfig from './OutputConfig';
-import type TranscriptionConfig from './TranscriptionConfig';
+import type AudioFile from '@/types/AudioFile';
+import type Language from '@/types/Language';
+import type OutputConfig from '@/types/OutputConfig';
+import type TranscriptionConfig from '@/types/TranscriptionConfig';
 
 export interface ModelInfo {
   name: string;

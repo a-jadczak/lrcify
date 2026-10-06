@@ -1,4 +1,4 @@
-import Device from 'src/types/Device';
+import Device from '@/types/Device';
 
 interface ModelConfig {
   languageISO: string;

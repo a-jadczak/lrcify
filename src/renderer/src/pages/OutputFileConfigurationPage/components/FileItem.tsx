@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
-import IconLabel from '@renderer/components/IconLabel';
+import IconLabel from '@/renderer/src/components/IconLabel';
 import DescriptionIcon from '@mui/icons-material/Description';
 import FolderIcon from '@mui/icons-material/Folder';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
-import AudioFile from 'src/types/AudioFile';
-import { splitFileExtension } from '@renderer/utils/stringUtils';
+import AudioFile from '@/types/AudioFile';
+import { splitFileExtension } from '@/renderer/src/utils/stringUtils';
 
 interface FileItemProps {
   file: AudioFile;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { JSX, ReactNode } from 'react';
-import type OutputConfig from 'src/types/OutputConfig';
-import type TranscriptionConfig from 'src/types/TranscriptionConfig';
-import { FullTranscriptionConfigContext } from './TranscribeConfigContext';
+import type OutputConfig from '@/types/OutputConfig';
+import type TranscriptionConfig from '@/types/TranscriptionConfig';
+import { FullTranscriptionConfigContext } from '@/renderer/src/contexts/TranscribeConfigContext';
 
 export const TranscriptionConfigProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [transcriptionConfig, setTranscriptionConfig] = useState<TranscriptionConfig>();

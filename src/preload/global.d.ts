@@ -1,4 +1,4 @@
-import type { RendererApi, RendererSocket } from '../types/ipc';
+import type { RendererApi, RendererSocket } from '@/types/ipc';
 
 declare global {
   interface Window {

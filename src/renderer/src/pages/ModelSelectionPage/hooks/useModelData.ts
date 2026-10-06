@@ -1,7 +1,7 @@
-import { sendWebSocketMessage } from '@renderer/utils/webSocket';
-import ModelData from '@renderer/types/ModelData';
+import { sendWebSocketMessage } from '@/renderer/src/utils/webSocket';
+import ModelData from '@/renderer/src/types/ModelData';
 import { useEffect, useState } from 'react';
-import DownloadProgress from 'src/renderer/src/types/DownloadProgress';
+import DownloadProgress from '@/renderer/src/types/DownloadProgress';
 
 type ModelInstalled = 'yes' | 'no' | 'awaiting';
 

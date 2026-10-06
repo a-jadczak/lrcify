@@ -4,16 +4,26 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   main: {
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'src'),
+        '@resources': resolve(__dirname, 'resources')
+      }
+    },
     plugins: [externalizeDepsPlugin()]
   },
   preload: {
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'src')
+      }
+    },
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
     resolve: {
       alias: {
-        src: resolve('src'),
-        '@renderer': resolve('src/renderer/src')
+        '@': resolve(__dirname, 'src')
       }
     },
     plugins: [react()]

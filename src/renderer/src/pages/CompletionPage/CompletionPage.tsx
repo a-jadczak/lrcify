@@ -1,8 +1,8 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useContext } from 'react';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import StepperContext from '@renderer/contexts/StepperContext';
-import './styles.css';
+import StepperContext from '@/renderer/src/contexts/StepperContext';
+import '@/renderer/src/pages/CompletionPage/styles.css';
 
 const CompletionPage = (): React.JSX.Element => {
   const { setActiveStep } = useContext(StepperContext)!;

@@ -1,11 +1,11 @@
 import { BrowserWindow, ipcMain } from 'electron';
-import { IPC_CHANNELS } from '../../../../ipc/ipc';
-import type { WebSocketCommand } from '../../../../types/ipc';
+import { IPC_CHANNELS } from '@/ipc/ipc';
+import type { WebSocketCommand } from '@/types/ipc';
 import {
   BACKEND_WS_URL,
   INITIAL_RECONNECT_DELAY_MS,
   MAX_RECONNECT_DELAY_MS
-} from '../../config/backend';
+} from '@/main/ipc/config/backend';
 
 export const registerBackendSocketHandlers = (): (() => void) => {
   let socket: WebSocket | null = null;

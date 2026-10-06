@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
   Typography
 } from '@mui/material';
-import ModelData from '@renderer/types/ModelData';
+import ModelData from '@/renderer/src/types/ModelData';
 import { useState } from 'react';
 
 interface ModelSelectProps {

@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Typography } from '@mui/material';
-import LinearProgressWithLabel from '@renderer/components/LinearProgressWithLabel';
-import type DownloadProgress from '@renderer/types/DownloadProgress';
+import LinearProgressWithLabel from '@/renderer/src/components/LinearProgressWithLabel';
+import type DownloadProgress from '@/renderer/src/types/DownloadProgress';
 
 interface ModelInstallerProps {
   downloadProgress: DownloadProgress;

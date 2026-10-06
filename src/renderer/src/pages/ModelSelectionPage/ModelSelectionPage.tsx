@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
-import StepperContext from '@renderer/contexts/StepperContext';
-import useTranscriptionEnvironment from '@renderer/pages/ModelSelectionPage/hooks/useTranscriptionEnvironment';
-import useModelData from '@renderer/pages/ModelSelectionPage/hooks/useModelData';
-import ModelSelect from './components/ModelSelect';
-import ModelInstaller from './components/ModelInstaller';
-import ModelSettings from './components/ModelSettings';
+import StepperContext from '@/renderer/src/contexts/StepperContext';
+import useTranscriptionEnvironment from '@/renderer/src/pages/ModelSelectionPage/hooks/useTranscriptionEnvironment';
+import useModelData from '@/renderer/src/pages/ModelSelectionPage/hooks/useModelData';
+import ModelSelect from '@/renderer/src/pages/ModelSelectionPage/components/ModelSelect';
+import ModelInstaller from '@/renderer/src/pages/ModelSelectionPage/components/ModelInstaller';
+import ModelSettings from '@/renderer/src/pages/ModelSelectionPage/components/ModelSettings';
 import { CircularProgress } from '@mui/material';
-import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
-import ModelConfig from './types/ModelConfig';
+import { FullTranscriptionConfigContext } from '@/renderer/src/contexts/TranscribeConfigContext';
+import ModelConfig from '@/renderer/src/pages/ModelSelectionPage/types/ModelConfig';
 
 const ModelSelectionPage = (): React.JSX.Element => {
   const { setNextStepAvailable, setPreviousStepAvailable } = useContext(StepperContext)!;

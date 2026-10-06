@@ -1,6 +1,6 @@
 import { ipcRenderer, webUtils } from 'electron';
-import { IPC_CHANNELS } from '../../ipc/ipc';
-import type { PickDirectoryResult, PickFilesResult } from '../../types/ipc';
+import { IPC_CHANNELS } from '@/ipc/ipc';
+import type { PickDirectoryResult, PickFilesResult } from '@/types/ipc';
 
 export const pickFiles = (): Promise<PickFilesResult> => ipcRenderer.invoke(IPC_CHANNELS.pickFiles);
 

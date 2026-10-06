@@ -1,10 +1,10 @@
 import { Box, Chip } from '@mui/material';
-import Dropzone from '@renderer/components/Dropzone';
+import Dropzone from '@/renderer/src/components/Dropzone';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import { useContext, useEffect } from 'react';
-import { FilesContext } from '@renderer/contexts/FilesContext';
-import StepperContext from '@renderer/contexts/StepperContext';
-import './styles.css';
+import { FilesContext } from '@/renderer/src/contexts/FilesContext';
+import StepperContext from '@/renderer/src/contexts/StepperContext';
+import '@/renderer/src/pages/UploadPage/styles.css';
 
 const UploadPage = (): React.JSX.Element => {
   const { files, deleteFile } = useContext(FilesContext)!;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Language from 'src/types/Language';
+import Language from '@/types/Language';
 
 const useTranscriptionEnvironment = () => {
   const [isCudaAvailable, setIsCudaAvailable] = useState<boolean>();

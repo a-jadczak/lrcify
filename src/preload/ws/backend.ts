@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
-import { IPC_CHANNELS } from '../../ipc/ipc';
-import type { RendererSocket } from '../../types/ipc';
+import { IPC_CHANNELS } from '@/ipc/ipc';
+import type { RendererSocket } from '@/types/ipc';
 
 type Listener = (data: string) => void;
 const listeners = new Set<Listener>();

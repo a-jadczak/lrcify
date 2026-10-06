@@ -10,9 +10,9 @@ import {
   Typography
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import Language from 'src/types/Language';
-import ModelConfig from '../types/ModelConfig';
-import Device from 'src/types/Device';
+import Language from '@/types/Language';
+import ModelConfig from '@/renderer/src/pages/ModelSelectionPage/types/ModelConfig';
+import Device from '@/types/Device';
 
 interface ModelSettingsProps {
   modelConfig: ModelConfig;

@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
-import { api } from '../client';
-import { IPC_CHANNELS } from '../../../../ipc/ipc';
-import type Language from '../../../../types/Language';
+import { api } from '@/main/ipc/api/client';
+import { IPC_CHANNELS } from '@/ipc/ipc';
+import type Language from '@/types/Language';
 
 export const registerAPIHandlers = (): void => {
   ipcMain.handle(IPC_CHANNELS.getLanguages, async (): Promise<Language[]> => {

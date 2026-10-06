@@ -1,9 +1,9 @@
-import OutputFileConfigurationPage from '../pages/OutputFileConfigurationPage/OutputFileConfigurationPage';
-import ModelSelectionPage from '../pages/ModelSelectionPage/ModelSelectionPage';
-import TranslationPage from '../pages/TranslationPage/TranslationPage';
-import CompletionPage from '@renderer/pages/CompletionPage/CompletionPage';
-import UploadPage from '@renderer/pages/UploadPage/UploadPage';
-import Step from 'src/types/Step';
+import OutputFileConfigurationPage from '@/renderer/src/pages/OutputFileConfigurationPage/OutputFileConfigurationPage';
+import ModelSelectionPage from '@/renderer/src/pages/ModelSelectionPage/ModelSelectionPage';
+import TranslationPage from '@/renderer/src/pages/TranslationPage/TranslationPage';
+import CompletionPage from '@/renderer/src/pages/CompletionPage/CompletionPage';
+import UploadPage from '@/renderer/src/pages/UploadPage/UploadPage';
+import Step from '@/types/Step';
 
 export const steps: Step[] = [
   {

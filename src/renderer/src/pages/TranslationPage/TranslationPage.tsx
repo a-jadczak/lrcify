@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
-import './styles.css';
+import '@/renderer/src/pages/TranslationPage/styles.css';
 import { useContext, useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
-import StepperContext from '@renderer/contexts/StepperContext';
-import useTranscribe from './hooks/useTranscribe';
-import TranslationProgressPanel from './components/TranslationProgressPanel';
-import LyricsOutput from './components/LyricsOutput';
+import StepperContext from '@/renderer/src/contexts/StepperContext';
+import useTranscribe from '@/renderer/src/pages/TranslationPage/hooks/useTranscribe';
+import TranslationProgressPanel from '@/renderer/src/pages/TranslationPage/components/TranslationProgressPanel';
+import LyricsOutput from '@/renderer/src/pages/TranslationPage/components/LyricsOutput';
 
 const TranslationPage = (): ReactElement => {
   const { setNextStepAvailable } = useContext(StepperContext)!;

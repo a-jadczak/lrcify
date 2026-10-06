@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import { electronApp, optimizer } from '@electron-toolkit/utils';
-import { registerIPCHandlers } from './ipc';
-import { createMainWindow } from './config/mainWindow';
+import { registerIPCHandlers } from '@/main/ipc';
+import { createMainWindow } from '@/main/config/mainWindow';
 
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.electron');

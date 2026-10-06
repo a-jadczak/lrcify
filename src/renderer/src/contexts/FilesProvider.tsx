@@ -1,8 +1,8 @@
-import { getFileName, splitFileExtension } from '../utils/stringUtils';
+import { getFileName, splitFileExtension } from '@/renderer/src/utils/stringUtils';
 import { useState } from 'react';
 import type { JSX, ReactNode } from 'react';
-import type AudioFile from 'src/types/AudioFile';
-import { FilesContext } from './FilesContext';
+import type AudioFile from '@/types/AudioFile';
+import { FilesContext } from '@/renderer/src/contexts/FilesContext';
 
 export const FilesProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [files, setFilesState] = useState<AudioFile[]>([]);

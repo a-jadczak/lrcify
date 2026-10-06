@@ -1,6 +1,6 @@
-import { FilesContext } from '@renderer/contexts/FilesContext';
-import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
-import { sendWebSocketMessage } from '@renderer/utils/webSocket';
+import { FilesContext } from '@/renderer/src/contexts/FilesContext';
+import { FullTranscriptionConfigContext } from '@/renderer/src/contexts/TranscribeConfigContext';
+import { sendWebSocketMessage } from '@/renderer/src/utils/webSocket';
 import { useContext, useEffect, useRef, useState } from 'react';
 import type { Dispatch, RefObject, SetStateAction } from 'react';
 

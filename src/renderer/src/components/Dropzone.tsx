@@ -1,10 +1,10 @@
-import './Dropzone.css';
+import '@/renderer/src/components/Dropzone.css';
 import Upload from '@mui/icons-material/Upload';
 import { Box, Typography } from '@mui/material';
-import { FilesContext } from '@renderer/contexts/FilesContext';
-import { getFileExtension, splitFileExtension } from '@renderer/utils/stringUtils';
+import { FilesContext } from '@/renderer/src/contexts/FilesContext';
+import { getFileExtension, splitFileExtension } from '@/renderer/src/utils/stringUtils';
 import { useCallback, useContext, useState } from 'react';
-import AudioFile from 'src/types/AudioFile';
+import AudioFile from '@/types/AudioFile';
 import uniqid from 'uniqid';
 
 const Dropzone = (): React.JSX.Element => {

@@ -1,13 +1,13 @@
 import { Box, Typography } from '@mui/material';
-import './styles.css';
+import '@/renderer/src/pages/OutputFileConfigurationPage/styles.css';
 import { useContext, useEffect, useState } from 'react';
-import { FilesContext } from '@renderer/contexts/FilesContext';
-import { isEmpty } from '@renderer/utils/stringUtils';
-import StepperContext from '@renderer/contexts/StepperContext';
-import DirectoryInput from './components/DirectoryInput';
-import FileItem from './components/FileItem';
-import OutputOptions from './components/OutputOptions';
-import { FullTranscriptionConfigContext } from '@renderer/contexts/TranscribeConfigContext';
+import { FilesContext } from '@/renderer/src/contexts/FilesContext';
+import { isEmpty } from '@/renderer/src/utils/stringUtils';
+import StepperContext from '@/renderer/src/contexts/StepperContext';
+import DirectoryInput from '@/renderer/src/pages/OutputFileConfigurationPage/components/DirectoryInput';
+import FileItem from '@/renderer/src/pages/OutputFileConfigurationPage/components/FileItem';
+import OutputOptions from '@/renderer/src/pages/OutputFileConfigurationPage/components/OutputOptions';
+import { FullTranscriptionConfigContext } from '@/renderer/src/contexts/TranscribeConfigContext';
 
 const OutputFileConfigurationPage = (): React.JSX.Element => {
   const { files } = useContext(FilesContext)!;

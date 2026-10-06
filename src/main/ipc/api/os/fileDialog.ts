@@ -2,9 +2,9 @@ import { BrowserWindow, dialog, ipcMain } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import uniqid from 'uniqid';
-import { IPC_CHANNELS } from '../../../../ipc/ipc';
-import type { PickDirectoryResult, PickFilesResult } from '../../../../types/ipc';
-import type AudioFile from '../../../../types/AudioFile';
+import { IPC_CHANNELS } from '@/ipc/ipc';
+import type { PickDirectoryResult, PickFilesResult } from '@/types/ipc';
+import type AudioFile from '@/types/AudioFile';
 
 export const registerFileDialogHandlers = (): void => {
   ipcMain.handle(IPC_CHANNELS.pickFiles, async (event): Promise<PickFilesResult> => {

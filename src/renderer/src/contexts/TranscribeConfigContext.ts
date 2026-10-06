@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import type OutputConfig from 'src/types/OutputConfig';
-import type TranscriptionConfig from 'src/types/TranscriptionConfig';
+import type OutputConfig from '@/types/OutputConfig';
+import type TranscriptionConfig from '@/types/TranscriptionConfig';
 
 interface FullTranscriptionConfigContextType {
   outputConfig: OutputConfig | undefined;

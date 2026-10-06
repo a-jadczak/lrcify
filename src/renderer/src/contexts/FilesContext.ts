@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type AudioFile from 'src/types/AudioFile';
+import type AudioFile from '@/types/AudioFile';
 
 interface FilesContextType {
   files: AudioFile[];

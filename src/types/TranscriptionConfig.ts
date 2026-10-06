@@ -1,4 +1,4 @@
-import Device from './Device';
+import Device from '@/types/Device';
 
 interface TranscriptionConfig {
   device: Device;

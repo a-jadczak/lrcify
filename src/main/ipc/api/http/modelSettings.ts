@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
-import { api } from '../client';
-import { IPC_CHANNELS } from '../../../../ipc/ipc';
-import type { ModelInfo } from '../../../../types/ipc';
+import { api } from '@/main/ipc/api/client';
+import { IPC_CHANNELS } from '@/ipc/ipc';
+import type { ModelInfo } from '@/types/ipc';
 
 export const registerModelAPIHandlers = (): void => {
   ipcMain.handle(IPC_CHANNELS.getModels, async (): Promise<ModelInfo[]> => {

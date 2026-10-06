@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
-import { IPC_CHANNELS } from '../../ipc/ipc';
-import type { ModelInfo } from '../../types/ipc';
+import { IPC_CHANNELS } from '@/ipc/ipc';
+import type { ModelInfo } from '@/types/ipc';
 
 export const getModels = (): Promise<ModelInfo[]> => ipcRenderer.invoke(IPC_CHANNELS.getModels);
 

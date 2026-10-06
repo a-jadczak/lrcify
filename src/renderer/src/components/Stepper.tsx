@@ -1,7 +1,7 @@
 import { Stepper as StepperMUI, Step as StepMUI, StepLabel, Button, Box } from '@mui/material';
 import { JSX, useState } from 'react';
-import Step from 'src/types/Step';
-import StepperContext from '@renderer/contexts/StepperContext';
+import Step from '@/types/Step';
+import StepperContext from '@/renderer/src/contexts/StepperContext';
 
 interface StepperProps {
   steps: Step[];
