@@ -15,11 +15,11 @@ def test_models_name():
 
   assert isinstance(data, list)
   assert len(data) > 0
-  assert all(isinstance(x, str) for x in data)
+  assert all(isinstance(x["name"], str) for x in data)
 
 def test_model_weight():
   model_list = client.get("/models").json()
-  model = model_list[0]
+  model = model_list[0]["name"]
 
   response = client.get(f"/models/{model}/weight")
   assert response.status_code == 200
